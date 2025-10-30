@@ -25,14 +25,17 @@ jobs:
     
     - name: 의존성 설치
       run: |
+        cd stock-news-crawler
         pip install -r requirements.txt
     
     - name: 크롤링 실행
       run: |
+        cd stock-news-crawler
         python src/main.py --mode once
     
     - name: 결과 확인
       run: |
+        cd stock-news-crawler
         echo "=== 실행 완료 ==="
         ls -lh output/
         if [ -f "data/run_history.json" ]; then
@@ -44,7 +47,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./output
+        publish_dir: ./stock-news-crawler/output
         publish_branch: gh-pages
         keep_files: false
         user_name: 'github-actions[bot]'
