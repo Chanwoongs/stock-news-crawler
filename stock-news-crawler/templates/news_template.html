@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 호재 뉴스 - {{ date }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        .sort-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sort-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #e0e0e0;
+            color: #555;
+        }
+        
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .sort-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        .filter-section h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            background: white;
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .news-card.hidden {
+            display: none;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 10px;
+        }
+        
+        .stat-item .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-item .label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .news-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .news-card .score-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .news-card .new-badge {
+            position: absolute;
+            top: 20px;
+            right: 110px;
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .news-card .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-right: 100px;
+            line-height: 1.4;
+        }
+        
+        .news-card .title a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .news-card .title a:hover {
+            color: #667eea;
+        }
+        
+        .keywords {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .keyword {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .keyword.high {
+            background: #e74c3c;
+        }
+        
+        .keyword.medium {
+            background: #f39c12;
+        }
+        
+        .summary {
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .link-btn {
+            background: #3498db;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .link-btn:hover {
+            background: #2980b9;
+        }
+        
+        .no-news {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 12px;
+            color: #7f8c8d;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .news-card {
+                padding: 20px;
+            }
+            
+            .news-card .title {
+                font-size: 18px;
+            }
+            
+            .news-card .score-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+            
+            .news-card .new-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 주식 호재 뉴스</h1>
+            <p class="subtitle">{{ date }} 수집</p>
+            
+            <div class="sort-buttons">
+                <button class="sort-btn active" onclick="sortByTime()">⏱️ 최신순</button>
+                <button class="sort-btn" onclick="sortByScore()">⭐ 점수순</button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number">{{ total_count }}</div>
+                    <div class="label">전체 뉴스</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">{{ high_score_count }}</div>
+                    <div class="label">고득점 (7점 이상)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">{{ update_time }}</div>
+                    <div class="label">마지막 업데이트</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-section">
+            <h3>📅 날짜 필터</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-days="0" onclick="filterByDate(0)">오늘</button>
+                <button class="filter-btn" data-days="1" onclick="filterByDate(1)">어제</button>
+                <button class="filter-btn" data-days="3" onclick="filterByDate(3)">최근 3일</button>
+                <button class="filter-btn" data-days="7" onclick="filterByDate(7)">최근 7일</button>
+                <button class="filter-btn" data-days="30" onclick="filterByDate(30)">최근 30일</button>
+            </div>
+        </div>
+        
+        {% if news_list %}
+        <div id="news-container">
+            {% for news in news_list %}
+            <div class="news-card" data-score="{{ news.score }}" data-time="{{ news.published }}">
+                {% if news.is_new %}
+                <div class="new-badge">🔥 NEW</div>
+                {% endif %}
+                <div class="score-badge">{{ news.score }}점</div>
+                
+                <div class="title">
+                    <a href="{{ news.link }}" target="_blank">{{ news.title }}</a>
+                </div>
+                
+                <div class="keywords">
+                    {% for keyword in news.matched_keywords[:5] %}
+                    <span class="keyword {% if loop.index <= 2 %}high{% elif loop.index <= 4 %}medium{% endif %}">
+                        {{ keyword }}
+                    </span>
+                    {% endfor %}
+                </div>
+                
+                {% if news.summary %}
+                <div class="summary">
+                    {{ news.summary[:200] }}{% if news.summary|length > 200 %}...{% endif %}
+                </div>
+                {% endif %}
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 {{ news.source }}
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 {{ news.relative_time }}
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        ({{ news.published }})
+                    </div>
+                    <a href="{{ news.link }}" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="no-news">
+                <h2>아직 수집된 호재 뉴스가 없습니다.</h2>
+                <p>잠시 후 다시 확인해주세요.</p>
+            </div>
+        {% endif %}
+        
+        <div class="footer">
+            <p>🤖 자동 생성된 호재 뉴스 리포트</p>
+            <p>5분마다 자동 업데이트 | 개인 투자 참고용</p>
+        </div>
+    </div>
+    
+    <script>
+        // 현재 정렬 상태
+        let currentSort = 'time';
+        // 현재 필터 상태 (null이면 전체)
+        let currentFilter = null;
+        
+        // 날짜 필터링
+        function filterByDate(days) {
+            const button = event.target;
+            
+            // 이미 선택된 버튼을 다시 클릭하면 해제
+            if (currentFilter === days) {
+                currentFilter = null;
+                button.classList.remove('active');
+                showAllNews();
+                return;
+            }
+            
+            // 필터 적용
+            currentFilter = days;
+            
+            // 버튼 상태 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // 날짜 필터링
+            const now = new Date();
+            const cards = document.querySelectorAll('.news-card');
+            
+            cards.forEach(card => {
+                const newsTime = new Date(card.dataset.time);
+                const diffDays = (now - newsTime) / (1000 * 60 * 60 * 24);
+                
+                if (days === 0) {
+                    // 오늘: 24시간 이내
+                    if (diffDays <= 1) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                } else if (days === 1) {
+                    // 어제: 24~48시간
+                    if (diffDays > 1 && diffDays <= 2) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                } else {
+                    // N일: N일 이내
+                    if (diffDays <= days) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+            
+            smoothScroll();
+        }
+        
+        // 전체 뉴스 표시
+        function showAllNews() {
+            document.querySelectorAll('.news-card').forEach(card => {
+                card.classList.remove('hidden');
+            });
+        }
+        
+        // 최신순 정렬
+        function sortByTime() {
+            if (currentSort === 'time') return;
+            currentSort = 'time';
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 뉴스 카드들 가져오기
+            const container = document.getElementById('news-container');
+            const cards = Array.from(container.getElementsByClassName('news-card'));
+            
+            // 시간순 정렬 (최신이 위)
+            cards.sort((a, b) => {
+                const timeA = new Date(a.dataset.time);
+                const timeB = new Date(b.dataset.time);
+                return timeB - timeA;  // 내림차순
+            });
+            
+            // 다시 배치
+            cards.forEach(card => container.appendChild(card));
+            
+            // 스크롤 애니메이션
+            smoothScroll();
+        }
+        
+        // 점수순 정렬
+        function sortByScore() {
+            if (currentSort === 'score') return;
+            currentSort = 'score';
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 뉴스 카드들 가져오기
+            const container = document.getElementById('news-container');
+            const cards = Array.from(container.getElementsByClassName('news-card'));
+            
+            // 점수순 정렬 (높은 점수가 위, 같은 점수면 최신순)
+            cards.sort((a, b) => {
+                const scoreA = parseFloat(a.dataset.score);
+                const scoreB = parseFloat(b.dataset.score);
+                
+                if (scoreB !== scoreA) {
+                    return scoreB - scoreA;  // 점수 내림차순
+                } else {
+                    // 같은 점수면 시간순
+                    const timeA = new Date(a.dataset.time);
+                    const timeB = new Date(b.dataset.time);
+                    return timeB - timeA;  // 최신이 위
+                }
+            });
+            
+            // 다시 배치
+            cards.forEach(card => container.appendChild(card));
+            
+            // 스크롤 애니메이션
+            smoothScroll();
+        }
+        
+        // 부드러운 스크롤
+        function smoothScroll() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
+

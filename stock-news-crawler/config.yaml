@@ -1,0 +1,426 @@
+# 주식 호재 뉴스 크롤러 설정
+
+crawler:
+  interval: 300  # 5분 (초 단위)
+  max_news_per_run: 100  # 1회당 최대 처리 뉴스 수
+  timeout: 10  # 요청 타임아웃 (초)
+
+rss_sources:
+  # 주요 종합 경제지
+  - name: "한국경제"
+    url: "https://www.hankyung.com/feed/economy"
+    enabled: true
+  
+  - name: "매일경제"
+    url: "https://www.mk.co.kr/rss/40300001/"
+    enabled: true
+  
+  - name: "서울경제"
+    url: "https://www.sedaily.com/RSS/S00.xml"
+    enabled: true
+  
+  - name: "아시아경제"
+    url: "https://rss.asiae.co.kr/RSS/economy.xml"
+    enabled: true
+  
+  - name: "이데일리_증권"
+    url: "https://www.edaily.co.kr/rss/edaily_news.xml"
+    enabled: true
+  
+  # 방송 언론사
+  - name: "연합뉴스_경제"
+    url: "https://www.yonhapnewstv.co.kr/category/news/economy/feed/"
+    enabled: true
+  
+  - name: "SBS_경제"
+    url: "https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER"
+    enabled: true
+  
+  # 전문 증권 매체
+  - name: "파이낸셜뉴스"
+    url: "https://www.fnnews.com/rss/economy"
+    enabled: true
+  
+  - name: "더벨"
+    url: "https://www.thebell.co.kr/free/content/RssList.asp"
+    enabled: true
+  
+  - name: "머니투데이"
+    url: "https://www.mt.co.kr/rss/mt_news.xml"
+    enabled: true
+  
+  - name: "뉴스1_경제"
+    url: "https://www.news1.kr/rss/S1N2.xml"
+    enabled: true
+  
+  - name: "뉴시스_경제"
+    url: "https://www.newsis.com/RSS/economy.xml"
+    enabled: true
+  
+  - name: "조선비즈"
+    url: "https://biz.chosun.com/rss/economy.xml"
+    enabled: true
+  
+  - name: "중앙일보_경제"
+    url: "https://rss.joins.com/joins_economy_list.xml"
+    enabled: true
+  
+  - name: "동아일보_경제"
+    url: "https://rss.donga.com/economy.xml"
+    enabled: true
+  
+  - name: "KBS_경제"
+    url: "http://world.kbs.co.kr/rss/rss_news.htm?lang=k"
+    enabled: true
+  
+  - name: "MBC_경제"
+    url: "https://imnews.imbc.com/rss/news/economy.xml"
+    enabled: true
+  
+  - name: "한경컨센서스"
+    url: "https://consensus.hankyung.com/apps/rss.list"
+    enabled: true
+  
+  - name: "팍스넷"
+    url: "https://www.paxnetnews.com/rss/S1N1.xml"
+    enabled: true
+  
+  - name: "증권일보"
+    url: "https://www.etnews.com/rss/news.xml"
+    enabled: true
+  
+  - name: "비즈니스워치"
+    url: "https://www.bizwatch.co.kr/rss/total.xml"
+    enabled: true
+  
+  - name: "디지털타임스"
+    url: "https://www.dt.co.kr/rss/economics.xml"
+    enabled: true
+  
+  - name: "전자신문"
+    url: "https://www.etnews.com/rss/econews.xml"
+    enabled: true
+
+  # 구글 뉴스 - 초단기 (장중 실시간용, 30분)
+  - name: "구글뉴스_급등_초단기"
+    url: "https://news.google.com/rss/search?q=주식+급등+상한가+when:30m&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_실적_초단기"
+    url: "https://news.google.com/rss/search?q=실적+어닝서프라이즈+호실적+when:30m&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_공시_초단기"
+    url: "https://news.google.com/rss/search?q=공시+수주+계약+체결+when:30m&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+
+  # 구글 뉴스 (한국)
+  - name: "구글뉴스_주식"
+    url: "https://news.google.com/rss/search?q=주식+when:1h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+
+  - name: "구글뉴스_반도체"
+    url: "https://news.google.com/rss/search?q=반도체+실적+when:1h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_실적발표"
+    url: "https://news.google.com/rss/search?q=실적+발표+when:3h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_M&A"
+    url: "https://news.google.com/rss/search?q=M%26A+인수합병+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  # 해외 주식 - 개별 종목 (영어)
+  - name: "구글뉴스_테슬라"
+    url: "https://news.google.com/rss/search?q=Tesla+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_애플"
+    url: "https://news.google.com/rss/search?q=Apple+stock+earnings+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_엔비디아"
+    url: "https://news.google.com/rss/search?q=NVIDIA+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_마이크로소프트"
+    url: "https://news.google.com/rss/search?q=Microsoft+stock+earnings+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_아마존"
+    url: "https://news.google.com/rss/search?q=Amazon+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_구글"
+    url: "https://news.google.com/rss/search?q=Google+Alphabet+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_메타"
+    url: "https://news.google.com/rss/search?q=Meta+Facebook+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  # 해외 주식 - 산업/섹터 (영어)
+  - name: "구글뉴스_미국반도체"
+    url: "https://news.google.com/rss/search?q=semiconductor+chip+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_AI주식"
+    url: "https://news.google.com/rss/search?q=AI+artificial+intelligence+stock+when:3h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_전기차"
+    url: "https://news.google.com/rss/search?q=EV+electric+vehicle+stock+when:4h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_바이오테크"
+    url: "https://news.google.com/rss/search?q=biotech+stock+earnings+when:6h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  # 실시간 미국 뉴스 (RSS가 빠른 언론사)
+  - name: "MarketWatch_Breaking"
+    url: "https://feeds.marketwatch.com/marketwatch/topstories/"
+    enabled: true
+  
+  - name: "MarketWatch_Stock"
+    url: "https://feeds.marketwatch.com/marketwatch/StockstoWatch/"
+    enabled: true
+  
+  - name: "Reuters_Markets"
+    url: "https://news.yahoo.com/rss/business"
+    enabled: true
+  
+  - name: "Benzinga_News"
+    url: "https://www.benzinga.com/feed"
+    enabled: true
+  
+  - name: "Seeking_Alpha"
+    url: "https://seekingalpha.com/market_currents.xml"
+    enabled: true
+  
+  - name: "Yahoo_Finance_Top"
+    url: "https://finance.yahoo.com/news/rssindex"
+    enabled: true
+  
+  - name: "CNBC_Markets"
+    url: "https://www.cnbc.com/id/10000664/device/rss/rss.html"
+    enabled: true
+  
+  - name: "CNBC_Stocks"
+    url: "https://www.cnbc.com/id/15839135/device/rss/rss.html"
+    enabled: true
+  
+  - name: "Investors_Daily"
+    url: "https://www.investors.com/feed/"
+    enabled: true
+  
+  - name: "Motley_Fool"
+    url: "https://www.fool.com/feeds/index.aspx"
+    enabled: true
+  
+  - name: "TheStreet"
+    url: "https://www.thestreet.com/feeds/market-news.rss"
+    enabled: true
+  
+  - name: "Barrons_MarketNews"
+    url: "https://feeds.barrons.com/public/rss/barrons_marketsnews"
+    enabled: true
+  
+  - name: "FT_Companies"
+    url: "https://www.ft.com/companies?format=rss"
+    enabled: true
+  
+  - name: "WSJ_Markets"
+    url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+    enabled: true
+  
+  - name: "Bloomberg_Markets"
+    url: "https://feeds.bloomberg.com/markets/news.rss"
+    enabled: true
+  
+  - name: "Forbes_Markets"
+    url: "https://www.forbes.com/real-time/feed2/"
+    enabled: true
+  
+  - name: "Business_Insider"
+    url: "https://www.businessinsider.com/rss"
+    enabled: true
+  
+  - name: "TradingView_Ideas"
+    url: "https://www.tradingview.com/feed/"
+    enabled: true
+  
+  - name: "Zacks_Investment"
+    url: "https://www.zacks.com/rss/rss_news_stocks.xml"
+    enabled: true
+  
+  - name: "StockNews_Today"
+    url: "https://stocknews.com/feed/"
+    enabled: true
+  
+  - name: "247WallSt"
+    url: "https://247wallst.com/feed/"
+    enabled: true
+  
+  - name: "InvestorPlace"
+    url: "https://investorplace.com/feed/"
+    enabled: true
+  
+  - name: "Nasdaq_News"
+    url: "https://www.nasdaq.com/feed/rssoutbound"
+    enabled: true
+  
+  - name: "Briefing_Markets"
+    url: "https://www.briefing.com/rss/news.xml"
+    enabled: true
+
+  # 한국 주식 - 대형주
+  - name: "구글뉴스_삼성전자"
+    url: "https://news.google.com/rss/search?q=삼성전자+when:3h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_SK하이닉스"
+    url: "https://news.google.com/rss/search?q=SK하이닉스+when:3h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_현대차"
+    url: "https://news.google.com/rss/search?q=현대차+실적+when:4h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_LG에너지솔루션"
+    url: "https://news.google.com/rss/search?q=LG에너지솔루션+배터리+when:4h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  # 한국 주식 - 산업
+  - name: "구글뉴스_K-배터리"
+    url: "https://news.google.com/rss/search?q=배터리+2차전지+수주+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_K-바이오"
+    url: "https://news.google.com/rss/search?q=바이오+신약+임상+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_K-조선"
+    url: "https://news.google.com/rss/search?q=조선+수주+HD현대+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_K-방산"
+    url: "https://news.google.com/rss/search?q=방산+수출+한화+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  # 한국 산업별 전문
+  - name: "구글뉴스_코스피"
+    url: "https://news.google.com/rss/search?q=코스피+급등+최고치+when:2h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_IPO"
+    url: "https://news.google.com/rss/search?q=IPO+상장+공모+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_배당"
+    url: "https://news.google.com/rss/search?q=배당+증가+자사주+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_신기술"
+    url: "https://news.google.com/rss/search?q=신기술+특허+혁신+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  - name: "구글뉴스_AI한국"
+    url: "https://news.google.com/rss/search?q=AI+인공지능+개발+when:6h&hl=ko&gl=KR&ceid=KR:ko"
+    enabled: true
+  
+  # 미국 산업별 추가
+  - name: "구글뉴스_S&P500"
+    url: "https://news.google.com/rss/search?q=S%26P+500+record+high+when:2h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_Nasdaq100"
+    url: "https://news.google.com/rss/search?q=Nasdaq+100+surge+when:2h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_Dividend"
+    url: "https://news.google.com/rss/search?q=dividend+increase+stock+when:6h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_Buyback"
+    url: "https://news.google.com/rss/search?q=stock+buyback+repurchase+when:6h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_FDA"
+    url: "https://news.google.com/rss/search?q=FDA+approval+stock+when:6h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_Cloud"
+    url: "https://news.google.com/rss/search?q=cloud+computing+revenue+stock+when:6h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+  
+  - name: "구글뉴스_5G"
+    url: "https://news.google.com/rss/search?q=5G+wireless+stock+when:6h&hl=en&gl=US&ceid=US:en"
+    enabled: true
+
+output:
+  directory: "output"
+  keep_days: 30  # 30일 이전 HTML 파일 자동 삭제
+  
+cache:
+  file: "data/cache.json"
+  max_entries: 10000  # 최대 캐시 항목 수
+
+filtering:
+  min_score: 3.0  # 최소 점수 (이상만 저장) - 추천: 3.0~5.0
+  max_accumulated: 500  # 최대 누적 뉴스 개수
+  exclude_keywords:  # 제외할 키워드 (악재)
+    # 인명 관련
+    - "부고"
+    - "사망"
+    - "별세"
+    
+    # 법적 문제
+    - "소송"
+    - "횡령"
+    - "배임"
+    - "사기"
+    - "기소"
+    - "구속"
+    - "압수수색"
+    - "고발"
+    
+    # 주가 급락
+    - "폭락"
+    - "급락"
+    - "하락"
+    - "tanks"
+    - "plunges"
+    - "crashes"
+    - "tumbles"
+    
+    # 실적 악화
+    - "적자"
+    - "손실"
+    - "부진"
+    - "sluggish"
+    - "weak"
+    - "disappointing"
+    - "misses"
+    - "lower forecast"
+    - "낮은 전망"
+    - "실적 악화"
+    - "영업손실"
+    
+    # 경영 문제
+    - "파산"
+    - "도산"
+    - "부도"
+    - "워크아웃"
+    - "구조조정"
+    - "정리해고"
+    - "감원"
+    
+    # 기타 악재
+    - "리콜"
+    - "결함"
+    - "사고"
+    - "중단"
+    - "취소"
+    - "철회"
+
