@@ -13,10 +13,10 @@ logger = logging.getLogger(__name__)
 
 def get_relative_time(published_str: str) -> str:
     """
-    상대 시간 계산 (예: 5분 전, 1시간 전)
+    상대 시간 계산 (예: 5분 전, 1시간 전) - 한국 시간 기준
     
     Args:
-        published_str: 발행 시간 문자열 (YYYY-MM-DD HH:MM:SS)
+        published_str: 발행 시간 문자열 (YYYY-MM-DD HH:MM:SS, KST 기준)
         
     Returns:
         상대 시간 문자열
@@ -36,7 +36,7 @@ def get_relative_time(published_str: str) -> str:
         else:
             return str(published_str)
         
-        # 현재 시간과 비교
+        # 현재 한국 시간과 비교
         now = datetime.now()
         diff = now - published_dt
         
@@ -170,10 +170,10 @@ class HTMLGenerator:
     
     def _is_recent_news(self, published_str: str) -> bool:
         """
-        최근 뉴스 여부 판단 (1시간 이내)
+        최근 뉴스 여부 판단 (1시간 이내) - 한국 시간 기준
         
         Args:
-            published_str: 발행 시간 문자열
+            published_str: 발행 시간 문자열 (KST 기준)
             
         Returns:
             True if 1시간 이내 뉴스
@@ -191,6 +191,7 @@ class HTMLGenerator:
             else:
                 return False
             
+            # 현재 한국 시간과 비교
             now = datetime.now()
             diff = now - published_dt
             

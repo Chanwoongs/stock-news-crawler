@@ -367,7 +367,7 @@ cache:
   max_entries: 10000  # 최대 캐시 항목 수
 
 filtering:
-  min_score: 3.0  # 최소 점수 (이상만 저장) - 추천: 3.0~5.0
+  min_score: 5.0  # 최소 점수 (이상만 저장) - 추천: 3.0~5.0
   max_accumulated: 500  # 최대 누적 뉴스 개수
   exclude_keywords:  # 제외할 키워드 (악재)
     # 인명 관련

@@ -4,7 +4,7 @@ RSS 피드 수집 모듈 (비동기 처리)
 import asyncio
 import aiohttp
 import feedparser
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import List, Dict
 import logging
 
@@ -84,16 +84,20 @@ class RSSCollector:
         return all_news
     
     def _parse_date(self, entry) -> str:
-        """날짜 파싱"""
+        """날짜 파싱 (UTC → KST 변환)"""
         try:
             if hasattr(entry, 'published_parsed') and entry.published_parsed:
-                dt = datetime(*entry.published_parsed[:6])
-                return dt.strftime('%Y-%m-%d %H:%M:%S')
+                # UTC 시간으로 파싱
+                dt_utc = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+                # 한국 시간(KST, UTC+9)으로 변환
+                dt_kst = dt_utc + timedelta(hours=9)
+                return dt_kst.strftime('%Y-%m-%d %H:%M:%S')
             elif hasattr(entry, 'published'):
                 return entry.published
         except:
             pass
         
+        # 현재 한국 시간
         return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
