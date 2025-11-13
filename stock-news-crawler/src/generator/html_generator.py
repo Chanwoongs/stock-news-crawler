@@ -2,13 +2,15 @@
 HTML 리포트 생성 모듈
 """
 import os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import List, Dict
 from jinja2 import Template
 import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+KST = timezone(timedelta(hours=9))
 
 
 def get_relative_time(published_str: str) -> str:
@@ -28,6 +30,7 @@ def get_relative_time(published_str: str) -> str:
             for fmt in ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M', '%Y-%m-%d']:
                 try:
                     published_dt = datetime.strptime(published_str, fmt)
+                    published_dt = published_dt.replace(tzinfo=KST)
                     break
                 except ValueError:
                     continue
@@ -37,7 +40,7 @@ def get_relative_time(published_str: str) -> str:
             return str(published_str)
         
         # 현재 한국 시간과 비교
-        now = datetime.now()
+        now = datetime.now(tz=KST)
         diff = now - published_dt
         
         # 초 단위 차이
@@ -104,7 +107,7 @@ class HTMLGenerator:
             생성된 파일 경로
         """
         if output_filename is None:
-            today = datetime.now().strftime('%Y-%m-%d')
+            today = datetime.now(tz=KST).strftime('%Y-%m-%d')
             output_filename = f"{today}.html"
         
         # 1. 최신 순으로 정렬 (published 기준)
@@ -121,10 +124,10 @@ class HTMLGenerator:
         # HTML 렌더링
         html_content = self.template.render(
             news_list=sorted_news,
-            date=datetime.now().strftime('%Y년 %m월 %d일'),
+            date=datetime.now(tz=KST).strftime('%Y년 %m월 %d일'),
             total_count=len(sorted_news),
             high_score_count=high_score_count,
-            update_time=datetime.now().strftime('%H:%M')
+            update_time=datetime.now(tz=KST).strftime('%H:%M')
         )
         
         # 파일 저장
@@ -157,13 +160,14 @@ class HTMLGenerator:
                     # 다양한 형식 시도
                     for fmt in ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M', '%Y-%m-%d']:
                         try:
-                            return datetime.strptime(published, fmt)
+                            dt = datetime.strptime(published, fmt)
+                            return dt.replace(tzinfo=KST)
                         except ValueError:
                             continue
                 # 파싱 실패시 과거 날짜로 설정 (맨 뒤로 보냄)
-                return datetime(1900, 1, 1)
+                return datetime(1900, 1, 1, tzinfo=KST)
             except:
-                return datetime(1900, 1, 1)
+                return datetime(1900, 1, 1, tzinfo=KST)
         
         # 최신 순 정렬 (내림차순)
         return sorted(news_list, key=parse_date, reverse=True)
@@ -183,6 +187,7 @@ class HTMLGenerator:
                 for fmt in ['%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M', '%Y-%m-%d']:
                     try:
                         published_dt = datetime.strptime(published_str, fmt)
+                        published_dt = published_dt.replace(tzinfo=KST)
                         break
                     except ValueError:
                         continue
@@ -192,7 +197,7 @@ class HTMLGenerator:
                 return False
             
             # 현재 한국 시간과 비교
-            now = datetime.now()
+            now = datetime.now(tz=KST)
             diff = now - published_dt
             
             # 1시간(3600초) 이내면 True
