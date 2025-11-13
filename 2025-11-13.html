@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 호재 뉴스 - 2025년 11월 13일</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        .sort-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sort-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #e0e0e0;
+            color: #555;
+        }
+        
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .sort-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        .filter-section h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            background: white;
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .news-card.hidden {
+            display: none;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 10px;
+        }
+        
+        .stat-item .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-item .label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .news-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .news-card .score-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .news-card .new-badge {
+            position: absolute;
+            top: 20px;
+            right: 110px;
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .news-card .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-right: 100px;
+            line-height: 1.4;
+        }
+        
+        .news-card .title a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .news-card .title a:hover {
+            color: #667eea;
+        }
+        
+        .keywords {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .keyword {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .keyword.high {
+            background: #e74c3c;
+        }
+        
+        .keyword.medium {
+            background: #f39c12;
+        }
+        
+        .summary {
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .link-btn {
+            background: #3498db;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .link-btn:hover {
+            background: #2980b9;
+        }
+        
+        .no-news {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 12px;
+            color: #7f8c8d;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .news-card {
+                padding: 20px;
+            }
+            
+            .news-card .title {
+                font-size: 18px;
+            }
+            
+            .news-card .score-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+            
+            .news-card .new-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 주식 호재 뉴스</h1>
+            <p class="subtitle">2025년 11월 13일 수집</p>
+            
+            <div class="sort-buttons">
+                <button class="sort-btn active" onclick="sortByTime()">⏱️ 최신순</button>
+                <button class="sort-btn" onclick="sortByScore()">⭐ 점수순</button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number">34</div>
+                    <div class="label">전체 뉴스</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">9</div>
+                    <div class="label">고득점 (7점 이상)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">15:15</div>
+                    <div class="label">마지막 업데이트 (KST)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-section">
+            <h3>📅 날짜 필터</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-days="0" onclick="filterByDate(0)">오늘</button>
+                <button class="filter-btn" data-days="1" onclick="filterByDate(1)">어제</button>
+                <button class="filter-btn" data-days="3" onclick="filterByDate(3)">최근 3일</button>
+                <button class="filter-btn" data-days="7" onclick="filterByDate(7)">최근 7일</button>
+                <button class="filter-btn" data-days="30" onclick="filterByDate(30)">최근 30일</button>
+            </div>
+        </div>
+        
+        
+        <div id="news-container">
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 23:22:31">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.bloomberg.com/news/articles/2025-11-13/crypto-asset-manager-grayscale-shows-revenue-drop-in-ipo-filing" target="_blank">Crypto Asset Manager Grayscale Shows Revenue Drop in IPO Filing</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        IPO
+                    </span>
+                    
+                    <span class="keyword high">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        investment
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    Grayscale Investments Inc. filed publicly for an initial public offering, the latest cryptocurrency-linked company to test public markets under an administration more open to digital assets.
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Bloomberg_Markets
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 23:22:31 KST)
+                    </div>
+                    <a href="https://www.bloomberg.com/news/articles/2025-11-13/crypto-asset-manager-grayscale-shows-revenue-drop-in-ipo-filing" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 23:06:03">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxOeFRPLXlDWDdnYmtDbXVGaUxndmRMMFE2UHVqWktHRnlDQjIxdjlIdlprcDR1YjZCWEU0NUpuQ3NyNGJmejZ4ZXlpSjBQSGxadjhXVFFfSG1UQ0FjMnpLbUJOdTY3RmJ6YnBqNWtndDF1TUNrMzZWcVdmUnRPUFBuRw?oc=5" target="_blank">[美특징주]노키아, 엔비디아로부터 10억 달러 투자 유치…AI·6G 협력 강화 - 이데일리</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        투자 유치
+                    </span>
+                    
+                    <span class="keyword high">
+                        협력
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxOeFRPLXlDWDdnYmtDbXVGaUxndmRMMFE2UHVqWktHRnlDQjIxdjlIdlprcDR1YjZCWEU0NUpuQ3NyNGJmejZ4ZXlpSjBQSGxadjhXVFFfSG1UQ0FjMnpLbUJOdTY3RmJ6YnBqNWtndD...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_AI한국
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 23:06:03 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxOeFRPLXlDWDdnYmtDbXVGaUxndmRMMFE2UHVqWktHRnlDQjIxdjlIdlprcDR1YjZCWEU0NUpuQ3NyNGJmejZ4ZXlpSjBQSGxadjhXVFFfSG1UQ0FjMnpLbUJOdTY3RmJ6YnBqNWtndDF1TUNrMzZWcVdmUnRPUFBuRw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 23:00:42">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2025/11/13/disney-dis-climbs-in-pre-market-after-mixed-q4-results/" target="_blank">Disney (DIS) Climbs in Pre-Market After Mixed Q4 Results</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        recovery
+                    </span>
+                    
+                    <span class="keyword high">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gains
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>Disney (NYSE: DIS) beat earnings expectations this morning but missed on revenue, a split result that underscores the tension between the company&#8217;s recovery momentum and its struggle to grow ...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 23:00:42 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2025/11/13/disney-dis-climbs-in-pre-market-after-mixed-q4-results/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 22:58:40">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE8takxsQzdEdTZjM2YzNGt6SlhRdDBoS3lhWHMxM3Uta3NocXJ2Q0dKb2pwWUZLeWFyc0lTOFNxQ3NfSS1RMHI2MDBDX2h1TEl6MWZPQlVFQy1GVW9Dako5ZVV3QdIBY0FVX3lxTE8takxsQzdEdTZjM2YzNGt6SlhRdDBoS3lhWHMxM3Uta3NocXJ2Q0dKb2pwWUZLeWFyc0lTOFNxQ3NfSS1RMHI2MDBDX2h1TEl6MWZPQlVFQy1GVW9Dako5ZVV3QQ?oc=5" target="_blank">Solana treasury company Upexi launches $50 million stock buyback plan - Bitget</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        launch
+                    </span>
+                    
+                    <span class="keyword medium">
+                        launches
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE8takxsQzdEdTZjM2YzNGt6SlhRdDBoS3lhWHMxM3Uta3NocXJ2Q0dKb2pwWUZLeWFyc0lTOFNxQ3NfSS1RMHI2MDBDX2h1TEl6MWZPQlVFQy1GVW9Dako5ZVV3QdIBY0FVX3lxTE8tak...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 22:58:40 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE8takxsQzdEdTZjM2YzNGt6SlhRdDBoS3lhWHMxM3Uta3NocXJ2Q0dKb2pwWUZLeWFyc0lTOFNxQ3NfSS1RMHI2MDBDX2h1TEl6MWZPQlVFQy1GVW9Dako5ZVV3QdIBY0FVX3lxTE8takxsQzdEdTZjM2YzNGt6SlhRdDBoS3lhWHMxM3Uta3NocXJ2Q0dKb2pwWUZLeWFyc0lTOFNxQ3NfSS1RMHI2MDBDX2h1TEl6MWZPQlVFQy1GVW9Dako5ZVV3QQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="8.0" data-time="2025-11-13 22:43:46">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">8.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxQYjRFbDNFa0hmdy1jZXlCOWw0X2NCTFZLSTBwTlYwZ0tfMDFDVTdtSGlDSVFkRzZiRGRjZUZQd0NfQURTNnZFVm1QSHNBdzlnSWU2M2hnQkRTQi1XelVPQU9CT1B0U0htN3ZUTGdjS1ZUXzVqUmd4dWpoRlluZXZ1eEtaZUp2dnM3LVk1akROVzZacy1zaTJUNWwtMFpmWWJHc3lrWFo5TUh5Z0FuSDlYNlJveXlEeXFrRG56UFktUXdldHA2ZnRlaDFB0gHPAUFVX3lxTE52Qm1MdENpY0tSd0dXTjhYZjRJS0VXOEJYLVJHVjR4a3dyVzVuQ1h3RUFFUVZ1bld4dXdRaTRLdzRpVG9NNV9jZ1ZpUFIta0ZvQzAxQVphUDlhRUJfaWRLZmJtb2lPWXMyOWtBTEZYdWtYd21YUkV1bWVBTm02aVNlTTI2MDZjbGJ5YkJ4b2t6bVFWSm1lU0tYZ1NvVm9FSWMzdG85ZnVYN25BSTNjdmpwWDlkMWs2QnFwVGRHWHdpd3VoT2hsTWUxMWpENjBqYw?oc=5" target="_blank">Should Strong Earnings and a Dividend Increase Prompt Action From H2O America (HTO) Investors? - simplywall.st</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        strong earnings
+                    </span>
+                    
+                    <span class="keyword high">
+                        dividend increase
+                    </span>
+                    
+                    <span class="keyword medium">
+                        increase
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxQYjRFbDNFa0hmdy1jZXlCOWw0X2NCTFZLSTBwTlYwZ0tfMDFDVTdtSGlDSVFkRzZiRGRjZUZQd0NfQURTNnZFVm1QSHNBdzlnSWU2M2hnQkRTQi1XelVPQU9CT1B0U0htN3ZUTGdjS1...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Dividend
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 22:43:46 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxQYjRFbDNFa0hmdy1jZXlCOWw0X2NCTFZLSTBwTlYwZ0tfMDFDVTdtSGlDSVFkRzZiRGRjZUZQd0NfQURTNnZFVm1QSHNBdzlnSWU2M2hnQkRTQi1XelVPQU9CT1B0U0htN3ZUTGdjS1ZUXzVqUmd4dWpoRlluZXZ1eEtaZUp2dnM3LVk1akROVzZacy1zaTJUNWwtMFpmWWJHc3lrWFo5TUh5Z0FuSDlYNlJveXlEeXFrRG56UFktUXdldHA2ZnRlaDFB0gHPAUFVX3lxTE52Qm1MdENpY0tSd0dXTjhYZjRJS0VXOEJYLVJHVjR4a3dyVzVuQ1h3RUFFUVZ1bld4dXdRaTRLdzRpVG9NNV9jZ1ZpUFIta0ZvQzAxQVphUDlhRUJfaWRLZmJtb2lPWXMyOWtBTEZYdWtYd21YUkV1bWVBTm02aVNlTTI2MDZjbGJ5YkJ4b2t6bVFWSm1lU0tYZ1NvVm9FSWMzdG85ZnVYN25BSTNjdmpwWDlkMWs2QnFwVGRHWHdpd3VoT2hsTWUxMWpENjBqYw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.5" data-time="2025-11-13 22:31:01">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.5점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xVTZwNVFCOTllYVk0bGNvb1VNQ1BCSUt1NV9UaWMwQVhSaXNLNUx2aTVaQW91RjlWVE5jUXkxUjhMbndPUGpxZ2dqcXFaUTQwZnF5eW5rdHR1NEh5eDdEVA?oc=5" target="_blank">LS그룹, 동반성장·전략적 투자로 3년 연속 영업이익 1조원 돌파…"미래 성장동력 확보로 글로벌 시장 선도" - 뉴스스페이스</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        전략적 투자
+                    </span>
+                    
+                    <span class="keyword high">
+                        성장
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                    <span class="keyword medium">
+                        시장 선도
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xVTZwNVFCOTllYVk0bGNvb1VNQ1BCSUt1NV9UaWMwQVhSaXNLNUx2aTVaQW91RjlWVE5jUXkxUjhMbndPUGpxZ2dqcXFaUTQwZnF5eW5rdHR1NEh5eDdEVA?oc=5" target="_blan...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_SK하이닉스
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 22:31:01 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiYEFVX3lxTE9xVTZwNVFCOTllYVk0bGNvb1VNQ1BCSUt1NV9UaWMwQVhSaXNLNUx2aTVaQW91RjlWVE5jUXkxUjhMbndPUGpxZ2dqcXFaUTQwZnF5eW5rdHR1NEh5eDdEVA?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2025-11-13 22:12:55">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNeVA1VE41bjBzSklSMGVBamdqbmlsbEU1RGRRX09PdU9nVkZiRjJQZHFUU3Y5N29xaDhiWjlVbXQyNENpZ0lOZGVxQkZsZGhIdjNNd2RiLU9FaXlybDUzM1RZNUZXQ0ZFeElHS21wNXZta3Q0N0J6RndOcWpfYy1WMUFxMHVvdkhrRW9Yb3pKdUQ0SGxZczB6YnR1RS1EbG5TbFdVYllta1FDWHNrMTRZeEJkRkZvNXRmU0k0clFGbw?oc=5" target="_blank">Alpha and Omega Semiconductor authorizes $30 million share buyback - Investing.com</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNeVA1VE41bjBzSklSMGVBamdqbmlsbEU1RGRRX09PdU9nVkZiRjJQZHFUU3Y5N29xaDhiWjlVbXQyNENpZ0lOZGVxQkZsZGhIdjNNd2RiLU9FaXlybDUzM1RZNUZXQ0ZFeElHS21wNX...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 22:12:55 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNeVA1VE41bjBzSklSMGVBamdqbmlsbEU1RGRRX09PdU9nVkZiRjJQZHFUU3Y5N29xaDhiWjlVbXQyNENpZ0lOZGVxQkZsZGhIdjNNd2RiLU9FaXlybDUzM1RZNUZXQ0ZFeElHS21wNXZta3Q0N0J6RndOcWpfYy1WMUFxMHVvdkhrRW9Yb3pKdUQ0SGxZczB6YnR1RS1EbG5TbFdVYllta1FDWHNrMTRZeEJkRkZvNXRmU0k0clFGbw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.5" data-time="2025-11-13 22:10:11">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.5점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2025/11/13/here-are-thursdays-top-wall-street-analyst-research-calls-abbvie-applovin-autozone-booking-holdings-coreweave-doordash-and-more/" target="_blank">Here Are Thursday’s Top Wall Street Analyst Research Calls: AbbVie, AppLovin, Autozone, Booking Holdings, CoreWeave, DoorDash, and More</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        technology
+                    </span>
+                    
+                    <span class="keyword high">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        all-time high
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>Pre-Market Stock Futures: The stock futures are trading lower on Thursday, following another incredible day for the Dow Jones Industrials, while the rotation out of the NASDAQ and into technology i...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 22:10:11 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2025/11/13/here-are-thursdays-top-wall-street-analyst-research-calls-abbvie-applovin-autozone-booking-holdings-coreweave-doordash-and-more/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2025-11-13 22:03:06">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxQQTYtMUtWd1Y1Rk1iZ0xYaHpNRWdSYlNwWlZHNEZSM2p6RTBMUWxnX3dqQldmVWNlT3ZPV3dMRW9laXM4aFpXX3hkZl9xNUNKelQwV0p1czJneWdVVU1QR1kxeTA3WUhCTWFwY2lDNEVUQ1A2Y3RfTmh4SEpZcFNlbHMtSHk5OEFRZWJLZU9RcS1mZEFLdmZDTnpsUzZxX0psMW5teHExYl9HOUNDbENnSmkwa21rbEhXeHg3VDIwTnZMa3It?oc=5" target="_blank">S&P Global announces growth targets and new share buyback program - StreetInsider</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                    <span class="keyword medium">
+                        growth
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxQQTYtMUtWd1Y1Rk1iZ0xYaHpNRWdSYlNwWlZHNEZSM2p6RTBMUWxnX3dqQldmVWNlT3ZPV3dMRW9laXM4aFpXX3hkZl9xNUNKelQwV0p1czJneWdVVU1QR1kxeTA3WUhCTWFwY2lDNE...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 22:03:06 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxQQTYtMUtWd1Y1Rk1iZ0xYaHpNRWdSYlNwWlZHNEZSM2p6RTBMUWxnX3dqQldmVWNlT3ZPV3dMRW9laXM4aFpXX3hkZl9xNUNKelQwV0p1czJneWdVVU1QR1kxeTA3WUhCTWFwY2lDNEVUQ1A2Y3RfTmh4SEpZcFNlbHMtSHk5OEFRZWJLZU9RcS1mZEFLdmZDTnpsUzZxX0psMW5teHExYl9HOUNDbENnSmkwa21rbEhXeHg3VDIwTnZMa3It?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 21:49:19">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxOWkViOHJLbk1OVTRTZVFucFNHTFRIcUFJdUpfUTlyRlhjZmlibmZuWHN6RllKUE1uWU9WOGpvMmVnajJKRFZ1THVmQzloV0tVckZJRnhCNmpkcy1OcWVXTi1nbmpDRHVUbWp0UjVUSzJPTGIxaUFHRG9jeWZuLWZNOVZVMVVjV2FKVHFvMlZLOXQtdklPZzV3NXpHdTRRVUI3NUV1R081OGItTWotNzUxRzRwUk52d0lpMV9NaW9zNDRoVFpUUGtWM1lEdkktYkpJU0R2Y3JNdWJwZlFzODVJX2t0TkhIekFDaXfSAe8BQVVfeXFMTXNFYVpIcFhlWmg5SVhFclA1aXBMZUZBSFlWM0ROYllxb29zYzZZX21tVDJ4Y2VuamRyQ0IwUnlaOGtRQ3J1c3Zid3VDSkUwdUNMNEZOUUo0X0x1bDZiM3ZESktrYXFENXRmWE5MX3ZnRFZMaXpSVkVRbF8yZHJkdXRlLXhKZ0d1bi1XRVd6VmhrVWZpeVQwdlZvWlFnU1J4S3VvUUZibV9LRmZuT0l1VF9QX2FWLVhRVlNrdFBIOHp4VnFVd1VJek1PTkRCdjEwV0FtRjFYTDJRdWljNGl4S1hfQ2h2b1lORVFiX09sT1k?oc=5" target="_blank">A Closer Look at Bread Financial Holdings (BFH) Valuation Following Strong Q3 Earnings, Dividend Boost, and Buyback Expansion - simplywall.st</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        expansion
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxOWkViOHJLbk1OVTRTZVFucFNHTFRIcUFJdUpfUTlyRlhjZmlibmZuWHN6RllKUE1uWU9WOGpvMmVnajJKRFZ1THVmQzloV0tVckZJRnhCNmpkcy1OcWVXTi1nbmpDRHVUbWp0UjVUSz...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Dividend
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 21:49:19 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxOWkViOHJLbk1OVTRTZVFucFNHTFRIcUFJdUpfUTlyRlhjZmlibmZuWHN6RllKUE1uWU9WOGpvMmVnajJKRFZ1THVmQzloV0tVckZJRnhCNmpkcy1OcWVXTi1nbmpDRHVUbWp0UjVUSzJPTGIxaUFHRG9jeWZuLWZNOVZVMVVjV2FKVHFvMlZLOXQtdklPZzV3NXpHdTRRVUI3NUV1R081OGItTWotNzUxRzRwUk52d0lpMV9NaW9zNDRoVFpUUGtWM1lEdkktYkpJU0R2Y3JNdWJwZlFzODVJX2t0TkhIekFDaXfSAe8BQVVfeXFMTXNFYVpIcFhlWmg5SVhFclA1aXBMZUZBSFlWM0ROYllxb29zYzZZX21tVDJ4Y2VuamRyQ0IwUnlaOGtRQ3J1c3Zid3VDSkUwdUNMNEZOUUo0X0x1bDZiM3ZESktrYXFENXRmWE5MX3ZnRFZMaXpSVkVRbF8yZHJkdXRlLXhKZ0d1bi1XRVd6VmhrVWZpeVQwdlZvWlFnU1J4S3VvUUZibV9LRmZuT0l1VF9QX2FWLVhRVlNrdFBIOHp4VnFVd1VJek1PTkRCdjEwV0FtRjFYTDJRdWljNGl4S1hfQ2h2b1lORVFiX09sT1k?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2025-11-13 21:04:50">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20251113_0003402331" target="_blank">[올댓차이나] 中 온라인 할인몰 VIPS 홍콩 증시 이중상장 추진</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        상장
+                    </span>
+                    
+                    <span class="keyword high">
+                        IPO
+                    </span>
+                    
+                    <span class="keyword medium">
+                        확대
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2025/11/13/NISI20251113_0001992668_web.jpg?rnd=20251113210401" /></p><br />[서울=뉴시스]이재준 기자 = 중국 광저우(廣州)를 본거지로 하는 온라인 할인몰 VIPS(Vipshop Holdings 唯品會)가 홍콩 증시에 이중상장을 추...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 21:04:50 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20251113_0003402331" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 20:16:58">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNT0VCWnpjeGZ6RkZjZTlmdzRNSWZfUW5hWWwycDhnTFpBN0VSQmtrcWRDdkFELU93Q3BEci1sSlJPaTFuN1VjVjM3dHZCaW1QUDdyMjZmbm1DWTNXeTFpWUYzUEg3bXBKc2VRMVB3bHh2VWpISHVReXV3U1czeXJJQk1GbVBjcDJVNkpVWkozSUxuWHhBOWFjYi10NjZPQnhUQVdKYg?oc=5" target="_blank">Demetra to review 9-month results, continues share buyback programme - Cyprus Mail</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNT0VCWnpjeGZ6RkZjZTlmdzRNSWZfUW5hWWwycDhnTFpBN0VSQmtrcWRDdkFELU93Q3BEci1sSlJPaTFuN1VjVjM3dHZCaW1QUDdyMjZmbm1DWTNXeTFpWUYzUEg3bXBKc2VRMVB3bH...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 20:16:58 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNT0VCWnpjeGZ6RkZjZTlmdzRNSWZfUW5hWWwycDhnTFpBN0VSQmtrcWRDdkFELU93Q3BEci1sSlJPaTFuN1VjVjM3dHZCaW1QUDdyMjZmbm1DWTNXeTFpWUYzUEg3bXBKc2VRMVB3bHh2VWpISHVReXV3U1czeXJJQk1GbVBjcDJVNkpVWkozSUxuWHhBOWFjYi10NjZPQnhUQVdKYg?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 20:00:00">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxONVp6YkN3VmR1T2dXZnp3MU9vQ0d0amx4aEpqVnBMa2g1eWZVQVlLRm04d0laU29XdW40UlBtaFkzRWxPR1h0bGRSaXJkWlZnbzZ3N2Z4NG5RZFlDNFk5VVg3LUREZ1lBWEV5Q3hqaFVWOGpjY0pSZEFDWGFzS2FuWE1Dd2k1T2toZmRLMVgwZXpNaVN4c2pXakV0SG5xb1I1Q0V6ZHUweUczeURJallTd2FRWQ?oc=5" target="_blank">Aurora Mobile (NASDAQ: JG) board approves up to $10M share buyback through 2026 - Stock Titan</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxONVp6YkN3VmR1T2dXZnp3MU9vQ0d0amx4aEpqVnBMa2g1eWZVQVlLRm04d0laU29XdW40UlBtaFkzRWxPR1h0bGRSaXJkWlZnbzZ3N2Z4NG5RZFlDNFk5VVg3LUREZ1lBWEV5Q3hqaF...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 20:00:00 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxONVp6YkN3VmR1T2dXZnp3MU9vQ0d0amx4aEpqVnBMa2g1eWZVQVlLRm04d0laU29XdW40UlBtaFkzRWxPR1h0bGRSaXJkWlZnbzZ3N2Z4NG5RZFlDNFk5VVg3LUREZ1lBWEV5Q3hqaFVWOGpjY0pSZEFDWGFzS2FuWE1Dd2k1T2toZmRLMVgwZXpNaVN4c2pXakV0SG5xb1I1Q0V6ZHUweUczeURJallTd2FRWQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 20:00:00">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnFmVnU0cU9ETHhxSWs4SDFQTDZjcWpINkY4ejQ5Skozb0RUWl9QSWVaa0R1QzZUdmhIRFl6MUJMWWxydTNVQk1kTVBQTS0tQlpRYWV2VmRMZHRmT0NGUTZjRDh6OTRlbnRRdGJRM0RnSXk1eUlSSlZzeXVzQVpkZDNGenBKZFVpN3V4N2d5M0VvQTBiQTRYS3BvQXZMMnV5akNENlF1N1FqSWoyQk5VMTNpbktqZw?oc=5" target="_blank">Remarkable: AMD AI Data Center Growth Targets 80% Annual Expansion as Revenue Soars 35% - www.whatjobs.com</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        soars
+                    </span>
+                    
+                    <span class="keyword high">
+                        expansion
+                    </span>
+                    
+                    <span class="keyword medium">
+                        growth
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnFmVnU0cU9ETHhxSWs4SDFQTDZjcWpINkY4ejQ5Skozb0RUWl9QSWVaa0R1QzZUdmhIRFl6MUJMWWxydTNVQk1kTVBQTS0tQlpRYWV2VmRMZHRmT0NGUTZjRDh6OTRlbnRRdGJRM0...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Cloud
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 20:00:00 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnFmVnU0cU9ETHhxSWs4SDFQTDZjcWpINkY4ejQ5Skozb0RUWl9QSWVaa0R1QzZUdmhIRFl6MUJMWWxydTNVQk1kTVBQTS0tQlpRYWV2VmRMZHRmT0NGUTZjRDh6OTRlbnRRdGJRM0RnSXk1eUlSSlZzeXVzQVpkZDNGenBKZFVpN3V4N2d5M0VvQTBiQTRYS3BvQXZMMnV5akNENlF1N1FqSWoyQk5VMTNpbktqZw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 19:55:32">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPQmVjREgzeHhRMjdORmdTa1JCMWtRR1czYUoteUNXeDN0VmdyR2FFaURWUjNQMThLM0EwQmdjRFVWOVg3Z3lvQ09WTWZMRjFyYmtRQjFJVVR3b2wzV0l5aVRwRTZnbXZJVjJhTTFkYWN1RVdlU1pDVVROTjRUeFpRRlVvMHhSY0dzRnJUcE95N2Rkd2p3eTVfYWVVbFZtNmdCS2VNckVyWDg3Y3NqOEJyM0NnZmVRbUZ6VWJ0anVZWQ?oc=5" target="_blank">Conduit Holdings Advances Share Buyback Program with Recent Repurchase - TipRanks</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPQmVjREgzeHhRMjdORmdTa1JCMWtRR1czYUoteUNXeDN0VmdyR2FFaURWUjNQMThLM0EwQmdjRFVWOVg3Z3lvQ09WTWZMRjFyYmtRQjFJVVR3b2wzV0l5aVRwRTZnbXZJVjJhTTFkYW...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 19:55:32 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPQmVjREgzeHhRMjdORmdTa1JCMWtRR1czYUoteUNXeDN0VmdyR2FFaURWUjNQMThLM0EwQmdjRFVWOVg3Z3lvQ09WTWZMRjFyYmtRQjFJVVR3b2wzV0l5aVRwRTZnbXZJVjJhTTFkYWN1RVdlU1pDVVROTjRUeFpRRlVvMHhSY0dzRnJUcE95N2Rkd2p3eTVfYWVVbFZtNmdCS2VNckVyWDg3Y3NqOEJyM0NnZmVRbUZ6VWJ0anVZWQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2025-11-13 19:53:31">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132765654/1" target="_blank">BMW코리아, 올해 전동화 모델 판매 16%↑… PHEV 등 라인업 강화 영향</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        시설 확충
+                    </span>
+                    
+                    <span class="keyword high">
+                        라인업 강화
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                    <span class="keyword medium">
+                        증가
+                    </span>
+                    
+                    <span class="keyword ">
+                        긍정적
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <img align="left" hspace="10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2025/11/13/132765606.1.jpg" vspace="10" />BMW코리아는 올해 1월부터 10월까지 전동화 모델 판매량이 총 9454대로 전년 동기 대비 15.6% 증가한 실적을 기록했다고 13일 밝혔다. 차종별로...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 19:53:31 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132765654/1" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 19:44:04">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPb09nODVCTFdZYWVOYW9hYnhsVU9sTE9CZzBrcFlXX01PTWJDVnZvZF9RVHlJUkhGTDNYeFd0ak9udk1aRlFaeXYwa3JjT25QcUR0SGE5V2ZhRUJHT1hMZ2E5dVVvRVVtUDgyUnJERndHakZUZThDc1ZFMlRpUmkxSGFTUmlwUmxGaVFDUkRtWkpUdzY4S21qZFAxVW0zN2ptRThEVXp4Qmk?oc=5" target="_blank">Will Arrowhead Pharmaceuticals Inc. stock continue dividend increases - 2025 Dividend Review & Verified Entry Point Detection - newser.com</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        dividend increase
+                    </span>
+                    
+                    <span class="keyword high">
+                        increase
+                    </span>
+                    
+                    <span class="keyword medium">
+                        increases
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPb09nODVCTFdZYWVOYW9hYnhsVU9sTE9CZzBrcFlXX01PTWJDVnZvZF9RVHlJUkhGTDNYeFd0ak9udk1aRlFaeXYwa3JjT25QcUR0SGE5V2ZhRUJHT1hMZ2E5dVVvRVVtUDgyUnJERn...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Dividend
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 19:44:04 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPb09nODVCTFdZYWVOYW9hYnhsVU9sTE9CZzBrcFlXX01PTWJDVnZvZF9RVHlJUkhGTDNYeFd0ak9udk1aRlFaeXYwa3JjT25QcUR0SGE5V2ZhRUJHT1hMZ2E5dVVvRVVtUDgyUnJERndHakZUZThDc1ZFMlRpUmkxSGFTUmlwUmxGaVFDUkRtWkpUdzY4S21qZFAxVW0zN2ptRThEVXp4Qmk?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="9.0" data-time="2025-11-13 19:33:59">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">9.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxOdlNCd0YzLW0zZXhBeXdrcW5nTGVWRllMSjdScmhBTTZBYjVESXdSYjlWNkxXcmtpY0luLTBvaTJzMDluWFBFTXFQRmJDY1haSWZla2ZDQXlFMW9kV3VMZmg5eWE0M3Fma0I4VUd0X2pFTXRhZWliM3pmQkRQRUZiT1gwMXFQdWZldm5iLTE4Zzl0eDBGRnp6eHNKaDdNNDVnY2VRTXhjekJ4TWZ6Z093SW1GRDVBUkphUVhoVnJvSHFOTzFTRjg3djRRRdIB0AFBVV95cUxPTmlVUjc5WXAyTDlnSjE1dEdXRi1HLUhTckQ3SWtoeGgtWkdwQW1HektnUlZoOTYwTWhwdXNIWVlVVUlsM2dRZGJiSjllNXVZYWd5ZF9SZ2c0WUpOb0M0cGhROXZxZ2ExSkpXZHNJZ2xMOF8zaFlZUTV2MGJDYm9JaDdMQnNJc1FxcVVmOVU5WGxHeDZPRHpuei02b3ZnVHFFYXl4QjZrTXo1MGZpSHM1YTZfZURUTmNESFhMUDJObDluLWI1TmRsYTBvaDFfX0c0?oc=5" target="_blank">InterDigital (IDCC) Is Down 8.1% After Strong Earnings and Major Share Buyback Announcement – What's Changed - simplywall.st</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        strong earnings
+                    </span>
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword medium">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxOdlNCd0YzLW0zZXhBeXdrcW5nTGVWRllMSjdScmhBTTZBYjVESXdSYjlWNkxXcmtpY0luLTBvaTJzMDluWFBFTXFQRmJDY1haSWZla2ZDQXlFMW9kV3VMZmg5eWE0M3Fma0I4VUd0X2...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 19:33:59 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxOdlNCd0YzLW0zZXhBeXdrcW5nTGVWRllMSjdScmhBTTZBYjVESXdSYjlWNkxXcmtpY0luLTBvaTJzMDluWFBFTXFQRmJDY1haSWZla2ZDQXlFMW9kV3VMZmg5eWE0M3Fma0I4VUd0X2pFTXRhZWliM3pmQkRQRUZiT1gwMXFQdWZldm5iLTE4Zzl0eDBGRnp6eHNKaDdNNDVnY2VRTXhjekJ4TWZ6Z093SW1GRDVBUkphUVhoVnJvSHFOTzFTRjg3djRRRdIB0AFBVV95cUxPTmlVUjc5WXAyTDlnSjE1dEdXRi1HLUhTckQ3SWtoeGgtWkdwQW1HektnUlZoOTYwTWhwdXNIWVlVVUlsM2dRZGJiSjllNXVZYWd5ZF9SZ2c0WUpOb0M0cGhROXZxZ2ExSkpXZHNJZ2xMOF8zaFlZUTV2MGJDYm9JaDdMQnNJc1FxcVVmOVU5WGxHeDZPRHpuei02b3ZnVHFFYXl4QjZrTXo1MGZpSHM1YTZfZURUTmNESFhMUDJObDluLWI1TmRsYTBvaDFfX0c0?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="8.0" data-time="2025-11-13 19:00:04">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">8.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxQZUNGZG9XQTVDMTdYVEdNdVVhS0pCQjVoc0Y4TEt6NlE2UGF5eXFOSklabzllVnFKeXNhbjI4amR5RWVDR1dtMlFNSzFaR1d1LWpYTURNRG9wbjU3c1ZZWTZ6NTUzbDBMUllpVlllclNja1RhYVBMT1FFcHlzVXNLdGNSd21tNkd1VTZrZmRPYnB5NmhVOGZMWUFnOFlhWWdFdHc?oc=5" target="_blank">Bytes Technology Group Executes Share Buyback - TipRanks</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                    <span class="keyword medium">
+                        technology
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxQZUNGZG9XQTVDMTdYVEdNdVVhS0pCQjVoc0Y4TEt6NlE2UGF5eXFOSklabzllVnFKeXNhbjI4amR5RWVDR1dtMlFNSzFaR1d1LWpYTURNRG9wbjU3c1ZZWTZ6NTUzbDBMUllpVlllcl...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 19:00:04 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxQZUNGZG9XQTVDMTdYVEdNdVVhS0pCQjVoc0Y4TEt6NlE2UGF5eXFOSklabzllVnFKeXNhbjI4amR5RWVDR1dtMlFNSzFaR1d1LWpYTURNRG9wbjU3c1ZZWTZ6NTUzbDBMUllpVlllclNja1RhYVBMT1FFcHlzVXNLdGNSd21tNkd1VTZrZmRPYnB5NmhVOGZMWUFnOFlhWWdFdHc?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 18:47:57">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNUEQ1VF80REU5cmgxazhxNEFNX25Sa0U5MXQ4VUtBb0ZsbzI0bTlaU3FXR2V5ZnFraTFnREFaSVZ5RmVTTG9JeENpU0tnM1hZNncxbkZrcERrSzJWb1JjM0kzUndGZnJ2XzNWV2RFRks0TURGVHZycWZhWEZZYVQ3UmRiMnlXUQ?oc=5" target="_blank">Will MDBH stock continue dividend increases - Portfolio Risk Summary & Stock Portfolio Risk Management - newser.com</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        dividend increase
+                    </span>
+                    
+                    <span class="keyword high">
+                        increase
+                    </span>
+                    
+                    <span class="keyword medium">
+                        increases
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNUEQ1VF80REU5cmgxazhxNEFNX25Sa0U5MXQ4VUtBb0ZsbzI0bTlaU3FXR2V5ZnFraTFnREFaSVZ5RmVTTG9JeENpU0tnM1hZNncxbkZrcERrSzJWb1JjM0kzUndGZnJ2XzNWV2RFRk...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Dividend
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 18:47:57 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNUEQ1VF80REU5cmgxazhxNEFNX25Sa0U5MXQ4VUtBb0ZsbzI0bTlaU3FXR2V5ZnFraTFnREFaSVZ5RmVTTG9JeENpU0tnM1hZNncxbkZrcERrSzJWb1JjM0kzUndGZnJ2XzNWV2RFRks0TURGVHZycWZhWEZZYVQ3UmRiMnlXUQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 18:37:23">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20251113_0003402254" target="_blank">[올댓차이나] 홍콩 증시, 美 셧다운 해제로 나흘째 상승 마감…H주 0.63%↑</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        상장
+                    </span>
+                    
+                    <span class="keyword high">
+                        상승
+                    </span>
+                    
+                    <span class="keyword medium">
+                        매수
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2022/01/10/NISI20220110_0018324193_web.jpg?rnd=20220110231744" /></p><br />[서울=뉴시스]이재준 기자 = 홍콩 증시는 13일 그간 상승에 대한 반동으로 이익확정 매물이 선행하면서 반락 개장했다가 미국 연방정부  셧다운 해제에 오후장...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 18:37:23 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20251113_0003402254" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 18:23:21">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxNY2lrUDJGeURXRU9KaHFzell6SWxhQ1M3dHdfVnZBd1lVZHdkR2xuRG9ZNTVPbkRZcTdhdHRFMXpZZFgteF9Bam1JREpHUjZiZEtYZGNFWGdDcTVHalZ0VkdmQlZ1SllSMDhVVF9GcHBHWEkweDNsU1Vzam8wR0dQOG9xLVBaNjVocm9pYWJXNnZmcmhPZ01DMUZIM1dQblpNbEZtYlJ1NlpWNndkemNITmpNNkVOQ2RJ?oc=5" target="_blank">Kerry Group Advances Share Buyback Program with Latest Repurchase - TipRanks</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxNY2lrUDJGeURXRU9KaHFzell6SWxhQ1M3dHdfVnZBd1lVZHdkR2xuRG9ZNTVPbkRZcTdhdHRFMXpZZFgteF9Bam1JREpHUjZiZEtYZGNFWGdDcTVHalZ0VkdmQlZ1SllSMDhVVF9GcH...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 18:23:21 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxNY2lrUDJGeURXRU9KaHFzell6SWxhQ1M3dHdfVnZBd1lVZHdkR2xuRG9ZNTVPbkRZcTdhdHRFMXpZZFgteF9Bam1JREpHUjZiZEtYZGNFWGdDcTVHalZ0VkdmQlZ1SllSMDhVVF9GcHBHWEkweDNsU1Vzam8wR0dQOG9xLVBaNjVocm9pYWJXNnZmcmhPZ01DMUZIM1dQblpNbEZtYlJ1NlpWNndkemNITmpNNkVOQ2RJ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 18:17:39">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmVkT0hTeUtjdGcxU3kwU2hiczMwOFVDYnFpSmpESUc0RmJTSTIzYklsUzBYbkNFUnFwTmtUQllyU3IxNmdpdnUxSmNvc2loX0g3Tm1ZRW5WMFZqZWRDRXRGRXhjOEM1UXpvX2tqMjVzZXlVbVR5Y01IcXB2elhwZ0I1UXctbkF4MXNaX2RFcnV4bVp3OEZ0ZE1EU3BPNWhGNmg4UGMxbEVXWDNfWjBWSUY3ZmpNbEVlVGZ5cTFiYjBvbmF3VE9rSlg3b0pPZHNL0gHWAUFVX3lxTE1YckxVbWg3TF95WVhqM3d4TGJxLWZ4blAybW83ZVpVc0k1OXRrZDQ4TzBJaGFXVXVtb2pTLUNSVTdYVzZCN25VcFpJRF9vdTlFY0JJTHRfRi1lN3lwdUdYUHdPUVFwSWxDd0FNWUE3cmZhLWI5RlRhOXY4c3ZpU0NHbk5vS0dRcWkwVDFOTk5iOHlSZGVwTkdqYWVwQmVEcFpMa2VHTy1PQURHR3BQckdXWlpGVjlORnpXSEZUT29vdU82YnRHTFJkQlVMMTBBdHBtbWhGU1E?oc=5" target="_blank">Share Buyback Transaction Details November 6 - November 12, 2025 - The Manila Times</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmVkT0hTeUtjdGcxU3kwU2hiczMwOFVDYnFpSmpESUc0RmJTSTIzYklsUzBYbkNFUnFwTmtUQllyU3IxNmdpdnUxSmNvc2loX0g3Tm1ZRW5WMFZqZWRDRXRGRXhjOEM1UXpvX2tqMj...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 18:17:39 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmVkT0hTeUtjdGcxU3kwU2hiczMwOFVDYnFpSmpESUc0RmJTSTIzYklsUzBYbkNFUnFwTmtUQllyU3IxNmdpdnUxSmNvc2loX0g3Tm1ZRW5WMFZqZWRDRXRGRXhjOEM1UXpvX2tqMjVzZXlVbVR5Y01IcXB2elhwZ0I1UXctbkF4MXNaX2RFcnV4bVp3OEZ0ZE1EU3BPNWhGNmg4UGMxbEVXWDNfWjBWSUY3ZmpNbEVlVGZ5cTFiYjBvbmF3VE9rSlg3b0pPZHNL0gHWAUFVX3lxTE1YckxVbWg3TF95WVhqM3d4TGJxLWZ4blAybW83ZVpVc0k1OXRrZDQ4TzBJaGFXVXVtb2pTLUNSVTdYVzZCN25VcFpJRF9vdTlFY0JJTHRfRi1lN3lwdUdYUHdPUVFwSWxDd0FNWUE3cmZhLWI5RlRhOXY4c3ZpU0NHbk5vS0dRcWkwVDFOTk5iOHlSZGVwTkdqYWVwQmVEcFpMa2VHTy1PQURHR3BQckdXWlpGVjlORnpXSEZUT29vdU82YnRHTFJkQlVMMTBBdHBtbWhGU1E?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 18:03:00">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132762795/1" target="_blank">삼전, 사업지원실에 인수합병 전담조직 신설… ‘이재용 뉴 삼성’ 속도</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        M&A
+                    </span>
+                    
+                    <span class="keyword high">
+                        인수합병
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <img align="left" hspace="10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2025/11/13/132764440.1.jpg" vspace="10" />삼성전자가 최근 상설조직으로 격상시킨 사업지원실에 인수합병(M&amp;A) 전담 조직을 새로 설치했다. 이재용 삼성전자 회장이 구상하는 ‘뉴 삼성’ 실행...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 18:03:00 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132762795/1" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 17:36:59">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.bloomberg.com/news/articles/2025-11-13/novo-nordisk-offers-3-5-billion-bonds-to-fund-akero-acquisition" target="_blank">Novo Gets €15 Billion of Orders for Akero Acquisition Bonds</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        acquisition
+                    </span>
+                    
+                    <span class="keyword high">
+                        MOU
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    Novo Nordisk A/S has pulled in more than €15 billion ($17.4 billion) of investor orders for its multi-tranche bond sale, more than triple the amount the Danish drugmaker is seeking for its planned pur...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Bloomberg_Markets
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 17:36:59 KST)
+                    </div>
+                    <a href="https://www.bloomberg.com/news/articles/2025-11-13/novo-nordisk-offers-3-5-billion-bonds-to-fund-akero-acquisition" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 16:41:54">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20251113_0003402048" target="_blank">LH·승강기안전공단, AI 활용 승강기 안전관리 협력 MOU</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        신기술
+                    </span>
+                    
+                    <span class="keyword high">
+                        협력
+                    </span>
+                    
+                    <span class="keyword medium">
+                        MOU
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2025/11/13/NISI20251113_0001992465_web.jpg?rnd=20251113163939" /></p><br />[서울=뉴시스]정진형 기자 = 한국토지주택공사(LH)는 13일 LH 경기남부지역본부에서 한국승강기안전공단(KoELSA)과 AI를 활용한 승강기 안전관리 협력...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 16:41:54 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20251113_0003402048" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 16:30:00">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20251113_0003400764" target="_blank">산업부, 외투유치 유공자 40명 포상…투자 확대 방안 모색</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        투자 유치
+                    </span>
+                    
+                    <span class="keyword high">
+                        확대
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2025/09/18/NISI20250918_0020982256_web.jpg?rnd=20250918191107" /></p><br />[세종=뉴시스]김동현 기자 = 산업통상부는 13일 서울 인터컨티넨탈H에서 개최된 &#039;2025 외국기업의 날&#039; 행사에서  외국인 투자 유치에 ...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 16:30:00 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20251113_0003400764" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.5" data-time="2025-11-13 16:24:00">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">7.5점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132762466/1" target="_blank">AI 특수에 반도체 껑충…10월 ICT 수출 역대최대</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        신기술
+                    </span>
+                    
+                    <span class="keyword high">
+                        수출 증가
+                    </span>
+                    
+                    <span class="keyword medium">
+                        증가
+                    </span>
+                    
+                    <span class="keyword medium">
+                        상승
+                    </span>
+                    
+                    <span class="keyword ">
+                        역대 최대
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <img align="left" hspace="10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2025/11/13/132763112.1.jpg" vspace="10" />지난달 한국의 정보통신기술(ICT) 분야 수출액이 역대 10월 중 최대치로 나타났다. 추석 연휴에 따른 조업일수 감소에도 글로벌 인공지능(AI) 붐에 따...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 16:24:00 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132762466/1" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 15:29:14">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132762591/1" target="_blank">벤츠 회장·ASML CEO·젠슨 황…韓 찾는 거물들 ‘동맹’ 러브콜</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        제휴
+                    </span>
+                    
+                    <span class="keyword high">
+                        협력
+                    </span>
+                    
+                    <span class="keyword medium">
+                        확대
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <img align="left" hspace="10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2025/11/13/132762592.1.jpg" vspace="10" />삼성, SK, 현대차와 엔비디아의 ‘AI 동맹’, LG와 벤츠의 ‘전장 동맹’.최근 우리나라의 주요 기업과 글로벌 기업의 동맹(同盟)에 가속도가 붙고 있...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 15:29:14 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132762591/1" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-13 15:23:18">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20251113_0003401809" target="_blank">한전KDN, BS산업과 솔라시도 분산형 전력망·AI데이터센터 구축 '맞손'</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        협력
+                    </span>
+                    
+                    <span class="keyword high">
+                        연구개발
+                    </span>
+                    
+                    <span class="keyword medium">
+                        개발
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2025/11/13/NISI20251113_0001992284_web.jpg?rnd=20251113150704" /></p>[세종=뉴시스]손차민 기자 = 한전KDN이 BS산업과 13일 서울 BS한양타워에서 &#039;분산형 전력망 및 인공지능(AI) 데이터센터 구축을 위한 업무협약&#039...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 방금 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 15:23:18 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20251113_0003401809" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="8.5" data-time="2025-11-13 14:28:59">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">8.5점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132761873/1" target="_blank">와이즈버즈, 2025년 3분기 역대 최대 분기 실적 경신</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        실적 호조
+                    </span>
+                    
+                    <span class="keyword high">
+                        수주
+                    </span>
+                    
+                    <span class="keyword medium">
+                        성장
+                    </span>
+                    
+                    <span class="keyword medium">
+                        역대 최대
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <img align="left" hspace="10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2025/11/13/132761773.2.jpg" vspace="10" />디지털 광고 대행사 와이즈버즈는 2025년 3분기 매출 104억 3,900만 원, 영업이익 20억 9,400만 원을 기록하며 분기 기준 역대 최대 실적을...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 46분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 14:28:59 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20251113/132761873/1" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2025-11-13 07:27:49">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.bloomberg.com/news/videos/2025-11-12/texas-capital-bank-ceo-on-m-a-credit-record-earnings-video" target="_blank">Texas Capital CEO on M&amp;A, Credit, Earnings</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        M&A
+                    </span>
+                    
+                    <span class="keyword high">
+                        record earnings
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    Texas Capital CEO Rob Holmes discusses the lender’s record earnings, M&amp;A activity and the path ahead with Bloomberg Texas Bureau Chief Julie Fine. (Corrects company name in headline and descriptio...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Bloomberg_Markets
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 7시간 47분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 07:27:49 KST)
+                    </div>
+                    <a href="https://www.bloomberg.com/news/videos/2025-11-12/texas-capital-bank-ceo-on-m-a-credit-record-earnings-video" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.5" data-time="2025-11-13 01:12:58">
+                
+                <div class="score-badge">6.5점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2025/11/12/is-carvana-cvna-actually-in-trouble/" target="_blank">Is Carvana (CVNA) Actually In Trouble?</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        record revenue
+                    </span>
+                    
+                    <span class="keyword high">
+                        increase
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        year-over-year
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>Carvana (NYSE:CVNA) released its third-quarter earnings report last week, revealing record revenue of $5.6 billion, up 55% year-over-year, driven by 155,941 retail units sold, a 44% increase. Howev...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 14시간 2분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-13 01:12:58 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2025/11/12/is-carvana-cvna-actually-in-trouble/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2025-11-12 22:36:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://investorplace.com/hypergrowthinvesting/2025/11/why-nuclear-fusion-could-be-just-around-the-corner/" target="_blank">Why Nuclear Fusion Could Be Just Around the Corner</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        breakthrough
+                    </span>
+                    
+                    <span class="keyword high">
+                        growth
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><a href="https://investorplace.com">InvestorPlace - Stock Market News, Stock Advice &amp; Trading Tips</a></p>
+<p>Nuclear fusion is no longer “30 years away.” Discover how breakthroughs in AI, magn...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 InvestorPlace
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 16시간 39분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2025-11-12 22:36:00 KST)
+                    </div>
+                    <a href="https://investorplace.com/hypergrowthinvesting/2025/11/why-nuclear-fusion-could-be-just-around-the-corner/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <div class="footer">
+            <p>🤖 자동 생성된 호재 뉴스 리포트</p>
+            <p>5분마다 자동 업데이트 | 개인 투자 참고용</p>
+        </div>
+    </div>
+    
+    <script>
+        // 현재 정렬 상태
+        let currentSort = 'time';
+        // 현재 필터 상태 (null이면 전체)
+        let currentFilter = null;
+        
+        // 날짜 필터링
+        function filterByDate(days) {
+            const button = event.target;
+            
+            // 이미 선택된 버튼을 다시 클릭하면 해제
+            if (currentFilter === days) {
+                currentFilter = null;
+                button.classList.remove('active');
+                showAllNews();
+                return;
+            }
+            
+            // 필터 적용
+            currentFilter = days;
+            
+            // 버튼 상태 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // 날짜 필터링
+            const now = new Date();
+            const cards = document.querySelectorAll('.news-card');
+            
+            cards.forEach(card => {
+                const newsTime = new Date(card.dataset.time);
+                const diffDays = (now - newsTime) / (1000 * 60 * 60 * 24);
+                
+                if (days === 0) {
+                    // 오늘: 24시간 이내
+                    if (diffDays <= 1) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                } else if (days === 1) {
+                    // 어제: 24~48시간
+                    if (diffDays > 1 && diffDays <= 2) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                } else {
+                    // N일: N일 이내
+                    if (diffDays <= days) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+            
+            smoothScroll();
+        }
+        
+        // 전체 뉴스 표시
+        function showAllNews() {
+            document.querySelectorAll('.news-card').forEach(card => {
+                card.classList.remove('hidden');
+            });
+        }
+        
+        // 최신순 정렬
+        function sortByTime() {
+            if (currentSort === 'time') return;
+            currentSort = 'time';
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 뉴스 카드들 가져오기
+            const container = document.getElementById('news-container');
+            const cards = Array.from(container.getElementsByClassName('news-card'));
+            
+            // 시간순 정렬 (최신이 위)
+            cards.sort((a, b) => {
+                const timeA = new Date(a.dataset.time);
+                const timeB = new Date(b.dataset.time);
+                return timeB - timeA;  // 내림차순
+            });
+            
+            // 다시 배치
+            cards.forEach(card => container.appendChild(card));
+            
+            // 스크롤 애니메이션
+            smoothScroll();
+        }
+        
+        // 점수순 정렬
+        function sortByScore() {
+            if (currentSort === 'score') return;
+            currentSort = 'score';
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 뉴스 카드들 가져오기
+            const container = document.getElementById('news-container');
+            const cards = Array.from(container.getElementsByClassName('news-card'));
+            
+            // 점수순 정렬 (높은 점수가 위, 같은 점수면 최신순)
+            cards.sort((a, b) => {
+                const scoreA = parseFloat(a.dataset.score);
+                const scoreB = parseFloat(b.dataset.score);
+                
+                if (scoreB !== scoreA) {
+                    return scoreB - scoreA;  // 점수 내림차순
+                } else {
+                    // 같은 점수면 시간순
+                    const timeA = new Date(a.dataset.time);
+                    const timeB = new Date(b.dataset.time);
+                    return timeB - timeA;  // 최신이 위
+                }
+            });
+            
+            // 다시 배치
+            cards.forEach(card => container.appendChild(card));
+            
+            // 스크롤 애니메이션
+            smoothScroll();
+        }
+        
+        // 부드러운 스크롤
+        function smoothScroll() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
