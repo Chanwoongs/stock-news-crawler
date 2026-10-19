@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 호재 뉴스 - 2026년 10월 20일</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        .sort-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sort-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #e0e0e0;
+            color: #555;
+        }
+        
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .sort-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        .filter-section h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            border-radius: 20px;
+            background: white;
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .news-card.hidden {
+            display: none;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 10px;
+        }
+        
+        .stat-item .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-item .label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .news-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .news-card .score-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .news-card .new-badge {
+            position: absolute;
+            top: 20px;
+            right: 110px;
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .news-card .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-right: 100px;
+            line-height: 1.4;
+        }
+        
+        .news-card .title a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .news-card .title a:hover {
+            color: #667eea;
+        }
+        
+        .keywords {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .keyword {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .keyword.high {
+            background: #e74c3c;
+        }
+        
+        .keyword.medium {
+            background: #f39c12;
+        }
+        
+        .summary {
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .link-btn {
+            background: #3498db;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        
+        .link-btn:hover {
+            background: #2980b9;
+        }
+        
+        .no-news {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 12px;
+            color: #7f8c8d;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .news-card {
+                padding: 20px;
+            }
+            
+            .news-card .title {
+                font-size: 18px;
+            }
+            
+            .news-card .score-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+            
+            .news-card .new-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 주식 호재 뉴스</h1>
+            <p class="subtitle">2026년 10월 20일 수집</p>
+            
+            <div class="sort-buttons">
+                <button class="sort-btn active" onclick="sortByTime()">⏱️ 최신순</button>
+                <button class="sort-btn" onclick="sortByScore()">⭐ 점수순</button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number">29</div>
+                    <div class="label">전체 뉴스</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">6</div>
+                    <div class="label">고득점 (7점 이상)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">02:14</div>
+                    <div class="label">마지막 업데이트 (KST)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-section">
+            <h3>📅 날짜 필터</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-days="0" onclick="filterByDate(0)">오늘</button>
+                <button class="filter-btn" data-days="1" onclick="filterByDate(1)">어제</button>
+                <button class="filter-btn" data-days="3" onclick="filterByDate(3)">최근 3일</button>
+                <button class="filter-btn" data-days="7" onclick="filterByDate(7)">최근 7일</button>
+                <button class="filter-btn" data-days="30" onclick="filterByDate(30)">최근 30일</button>
+            </div>
+        </div>
+        
+        
+        <div id="news-container">
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-20 02:08:26">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2026/10/19/marvell-jumps-6-as-gf-securities-says-google-chip-delay-wont-dent-its-position-broadcom-rises-3/" target="_blank">Marvell Jumps 6% as GF Securities Says Google Chip Delay Won’t Dent Its Position; Broadcom Rises 3%</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        rises
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    A reported delay in Google's next AI chip sent investors scrambling to gauge the fallout for its custom silicon partners, but one analyst thinks the market is misreading what the setback actually mean...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 5분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 02:08:26 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2026/10/19/marvell-jumps-6-as-gf-securities-says-google-chip-delay-wont-dent-its-position-broadcom-rises-3/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-20 01:15:44">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2026/10/19/amazon-jumps-5-as-morgan-stanley-names-it-top-pick-on-faster-aws-growth-microsoft-and-alphabet-edge-higher/" target="_blank">Amazon Jumps 5% as Morgan Stanley Names It Top Pick on Faster AWS Growth; Microsoft and Alphabet Edge Higher</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        growth
+                    </span>
+                    
+                    <span class="keyword medium">
+                        upgrade
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    Morgan Stanley just put a bold new target on Amazon and called it a top pick, but the reasons behind the upgrade go far beyond the cloud spending story investors already know.
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 58분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 01:15:44 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2026/10/19/amazon-jumps-5-as-morgan-stanley-names-it-top-pick-on-faster-aws-growth-microsoft-and-alphabet-edge-higher/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-20 01:15:25">
+                
+                <div class="new-badge">🔥 NEW</div>
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2026/10/19/eqts-dividend-faces-a-big-test-can-natural-gas-cash-flow-hold-up/" target="_blank">EQT’s Dividend Faces a Big Test: Can Natural Gas Cash Flow Hold Up?</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    EQT just raised its dividend again, but with buybacks taking priority and natural gas prices still volatile, income investors need to know exactly how much pressure the payout can withstand before the...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 58분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 01:15:25 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2026/10/19/eqts-dividend-faces-a-big-test-can-natural-gas-cash-flow-hold-up/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-20 01:03:39">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxQazBWOXdGYWJtS0pyQmdKSE9vbjlMd0dselRPWW1uWjdjTGxhc0gyRU1nS0ZCTi1KYzFLMVQ3RHBncUxfRWFtb1ZjYi1RY3plTEVEM1QxM0JjMldUNjNKaE01ZDRIN1pOaHJXNjhXMVBad3MzYWhXSFJNcTZMQTNyUG56cnZKMVM2c2p4eE5ETnZTM0tXZ1I4T0cxWlgwQQ?oc=5" target="_blank">Microsoft shares hold near $535 as Azure growth, AI investments, and strong earnings expectations drive momentum - Traders Union</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        strong earnings
+                    </span>
+                    
+                    <span class="keyword high">
+                        growth
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        investment
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxQazBWOXdGYWJtS0pyQmdKSE9vbjlMd0dselRPWW1uWjdjTGxhc0gyRU1nS0ZCTi1KYzFLMVQ3RHBncUxfRWFtb1ZjYi1RY3plTEVEM1QxM0JjMldUNjNKaE01ZDRIN1pOaHJXNjhXMV...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_마이크로소프트
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 1시간 10분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 01:03:39 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxQazBWOXdGYWJtS0pyQmdKSE9vbjlMd0dselRPWW1uWjdjTGxhc0gyRU1nS0ZCTi1KYzFLMVQ3RHBncUxfRWFtb1ZjYi1RY3plTEVEM1QxM0JjMldUNjNKaE01ZDRIN1pOaHJXNjhXMVBad3MzYWhXSFJNcTZMQTNyUG56cnZKMVM2c2p4eE5ETnZTM0tXZ1I4T0cxWlgwQQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2026-10-20 00:54:30">
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2026/10/19/united-states-antimony-soars-11-while-rare-earth-peers-retreat-usa-rare-earth-drops-3-critical-metals-falls-4/" target="_blank">United States Antimony Soars 11% While Rare Earth Peers Retreat; USA Rare Earth Drops 3%, Critical Metals Falls 4%</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        soars
+                    </span>
+                    
+                    <span class="keyword high">
+                        rising
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gains
+                    </span>
+                    
+                    <span class="keyword ">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    While rare earth stocks slide against a rising market, one critical minerals producer is sprinting the opposite direction on the back of a sole-source military contract that most investors are only ju...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 1시간 19분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 00:54:30 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2026/10/19/united-states-antimony-soars-11-while-rare-earth-peers-retreat-usa-rare-earth-drops-3-critical-metals-falls-4/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2026-10-20 00:30:00">
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20261019/134869917/2" target="_blank">앤스로픽, 지분 5% 공익기금 출연… AI 일자리 충격 대응</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        상장
+                    </span>
+                    
+                    <span class="keyword high">
+                        IPO
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <img align="left" hspace="10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2026/10/19/134865863.1.jpg" vspace="10" />대규모 기업공개(IPO)를 추진 중인 앤스로픽이 회사 지분 5%를 공익기금에 내놓기로 했다. 인공지능(AI)으로 얻은 이익을 사회에 돌려주고 일자리 감소...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 1시간 44분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 00:30:00 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20261019/134869917/2" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-20 00:30:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.donga.com/news/Economy/article/all/20261019/134869047/2" target="_blank">[단신]삼성운용, ‘KODEX 미국배당다우존스액티브’ 상장 外</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        상장
+                    </span>
+                    
+                    <span class="keyword high">
+                        투자
+                    </span>
+                    
+                    <span class="keyword medium">
+                        출시
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    ■ 삼성운용, ‘KODEX 미국배당다우존스액티브’ 상장삼성자산운용이 ‘KODEX 미국배당다우존스액티브’ 상장지수펀드(ETF)를 20일 상장한다. 이 상품은 미국 뉴욕 증시 상장사 중에서 오랜 기간 꾸준히 배당을 늘려온 우량 기업 약 100개에 분산 투자하는 ‘미국배당다우존스 지수’를 기초 자산으로 하는 ETF다. 특히 삼성자산운용은 이 중에서도 약 70개 ...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 동아일보_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 1시간 44분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 00:30:00 KST)
+                    </div>
+                    <a href="https://www.donga.com/news/Economy/article/all/20261019/134869047/2" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-20 00:26:23">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQdF9ZaDcxeDJISFhNSlQ1NEx6WTltSmZhNmVvOFB2ZkZJYlh3UzJ2WGJodXRVRTNocFRUWEJnNDQ2VmM5ZEN3SVAtb2pyWUt4d3UxWmRuQld4RzB6S3hXOWNrNzhOM0piYURsYzZmRnB5cWZLcXNUR0p2QTZIXzBqVWl1cUJIQnFjTVNVaGJjTXJfd0x2bnJ1WnJGU3M2V0plOHR6N2VsZVFVcGxyU2hRMjRrZ0JIMmRmNkt4QjN3QUVySkU?oc=5" target="_blank">Strategy stock (MSTR) gains as company adds 267 BTC, raises buyback programme to $3B - Invezz</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gains
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQdF9ZaDcxeDJISFhNSlQ1NEx6WTltSmZhNmVvOFB2ZkZJYlh3UzJ2WGJodXRVRTNocFRUWEJnNDQ2VmM5ZEN3SVAtb2pyWUt4d3UxWmRuQld4RzB6S3hXOWNrNzhOM0piYURsYzZmRn...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 1시간 47분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 00:26:23 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQdF9ZaDcxeDJISFhNSlQ1NEx6WTltSmZhNmVvOFB2ZkZJYlh3UzJ2WGJodXRVRTNocFRUWEJnNDQ2VmM5ZEN3SVAtb2pyWUt4d3UxWmRuQld4RzB6S3hXOWNrNzhOM0piYURsYzZmRnB5cWZLcXNUR0p2QTZIXzBqVWl1cUJIQnFjTVNVaGJjTXJfd0x2bnJ1WnJGU3M2V0plOHR6N2VsZVFVcGxyU2hRMjRrZ0JIMmRmNkt4QjN3QUVySkU?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-20 00:00:35">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxOQTh0TWtFSUxSUzhWVmFYMWN3bjZkZGZ1NDMyRTd4WE5QWnJCXzlzQlRKYWoyQmY2MExENFRwYXNIN05WVEFLX3ItVDZGdFI2TFBvaUowRW5TY0Q1LWQxenI5MDhlZUxNaTYwbW1mYldwWDN6ckhua3ZidmZSLW1jR0dLSnhwaEFINVpQOTViVkl1QQ?oc=5" target="_blank">Amazon cloud revenue jumps significantly: Can AMZN continue gains? - Traders Union</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gains
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxOQTh0TWtFSUxSUzhWVmFYMWN3bjZkZGZ1NDMyRTd4WE5QWnJCXzlzQlRKYWoyQmY2MExENFRwYXNIN05WVEFLX3ItVDZGdFI2TFBvaUowRW5TY0Q1LWQxenI5MDhlZUxNaTYwbW1mYl...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_아마존
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2시간 13분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-20 00:00:35 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxOQTh0TWtFSUxSUzhWVmFYMWN3bjZkZGZ1NDMyRTd4WE5QWnJCXzlzQlRKYWoyQmY2MExENFRwYXNIN05WVEFLX3ItVDZGdFI2TFBvaUowRW5TY0Q1LWQxenI5MDhlZUxNaTYwbW1mYldwWDN6ckhua3ZidmZSLW1jR0dLSnhwaEFINVpQOTViVkl1QQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-19 23:59:13">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2026/10/19/memory-stocks-rally-as-tech-selloff-unwinds-micron-climbs-4-sandisk-jumps-7-sk-hynix-rises-5/" target="_blank">Memory Stocks Rally as Tech Selloff Unwinds: Micron Climbs 4%, Sandisk Jumps 7%, SK Hynix Rises 5%</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        technology
+                    </span>
+                    
+                    <span class="keyword medium">
+                        rises
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    Memory chip stocks are surging as AI spending fears fade, but Goldman Sachs just warned that Micron may be the odd one out while Sandisk and SK Hynix race ahead on a technology that could reshape how ...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2시간 15분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 23:59:13 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2026/10/19/memory-stocks-rally-as-tech-selloff-unwinds-micron-climbs-4-sandisk-jumps-7-sk-hynix-rises-5/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-19 23:53:14">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTFBLQ2JHTVBaNnk2RnRRajFLeTZ3UEtrN0dzZmJELTZaOG9kbEpuNzAxYnZaZm9uNkdOSlJSTkViMzdQazc2R3F5WVphOG1yTEN1NWFjZnJuS0FZWVBibVhzYU4xVFBZSnVnVTNKbWVMWHBMZ2U2?oc=5" target="_blank">Nasdaq Jumps 259 Points to 26,399 as Intel Surges 5.5% and AI Stocks Rebound After Brutal Selloff - HDFC Sky</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        surges
+                    </span>
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTFBLQ2JHTVBaNnk2RnRRajFLeTZ3UEtrN0dzZmJELTZaOG9kbEpuNzAxYnZaZm9uNkdOSlJSTkViMzdQazc2R3F5WVphOG1yTEN1NWFjZnJuS0FZWVBibVhzYU4xVFBZSnVnVTNKbWVMWH...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_AI주식
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2시간 21분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 23:53:14 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTFBLQ2JHTVBaNnk2RnRRajFLeTZ3UEtrN0dzZmJELTZaOG9kbEpuNzAxYnZaZm9uNkdOSlJSTkViMzdQazc2R3F5WVphOG1yTEN1NWFjZnJuS0FZWVBibVhzYU4xVFBZSnVnVTNKbWVMWHBMZ2U2?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-19 23:47:09">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://247wallst.com/investing/2026/10/19/datadog-jumps-5-as-bernstein-upgrade-cites-ai-demand-snowflake-rises-3-cloudflare-holds-steady/" target="_blank">Datadog Jumps 5% as Bernstein Upgrade Cites AI Demand; Snowflake Rises 3%, Cloudflare Holds Steady</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        rises
+                    </span>
+                    
+                    <span class="keyword medium">
+                        upgrade
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    Bernstein just reversed its Datadog call one quarter after a downgrade shook the stock, pointing to AI token consumption as the reason. Whether that optimism survives the November earnings report is t...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 247WallSt
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2시간 27분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 23:47:09 KST)
+                    </div>
+                    <a href="https://247wallst.com/investing/2026/10/19/datadog-jumps-5-as-bernstein-upgrade-cites-ai-demand-snowflake-rises-3-cloudflare-holds-steady/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 23:47:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVFF4S293LXRKTkJDNTZwR3hMT2ZzbTF2cTM1ZmFIVUVYdjlfdzNOX29Ia2p0WXk4SWk2TlNvTXBaVTc3aldYSDROWVJ1S1BBak1GZVF6MVY2VW9wR0hUMlVkdWFnekpqSjItTHM1RkMzNGhQZWc4TXExREFyT21UZnE1Rm9BczFrQnVOMWVFeE9MMEEtbHd6dDlnYnpyZ1N0ZUgyT1BWdzRIbTljSUpfRmU0aTNYa3BQNGRsbWM5LUpVMzlwS1dlY0x0amRPRWZQQThkNw?oc=5" target="_blank">Datadog Jumps 5% as Bernstein Upgrade Cites AI Demand; Snowflake Rises 3%, Cloudflare Holds Steady - 24/7 Wall St.</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        rises
+                    </span>
+                    
+                    <span class="keyword medium">
+                        upgrade
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVFF4S293LXRKTkJDNTZwR3hMT2ZzbTF2cTM1ZmFIVUVYdjlfdzNOX29Ia2p0WXk4SWk2TlNvTXBaVTc3aldYSDROWVJ1S1BBak1GZVF6MVY2VW9wR0hUMlVkdWFnekpqSjItTHM1Rk...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Cloud
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2시간 27분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 23:47:00 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVFF4S293LXRKTkJDNTZwR3hMT2ZzbTF2cTM1ZmFIVUVYdjlfdzNOX29Ia2p0WXk4SWk2TlNvTXBaVTc3aldYSDROWVJ1S1BBak1GZVF6MVY2VW9wR0hUMlVkdWFnekpqSjItTHM1RkMzNGhQZWc4TXExREFyT21UZnE1Rm9BczFrQnVOMWVFeE9MMEEtbHd6dDlnYnpyZ1N0ZUgyT1BWdzRIbTljSUpfRmU0aTNYa3BQNGRsbWM5LUpVMzlwS1dlY0x0amRPRWZQQThkNw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 23:08:43">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.investors.com/news/technology/neoclouds-goldman-sachs-upgrades-coreweave-microsoft-shelves-nscale-project/" target="_blank">Neoclouds: Goldman Sachs Upgrades CoreWeave. Microsoft Shelves Nscale Project.</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        technology
+                    </span>
+                    
+                    <span class="keyword high">
+                        rising
+                    </span>
+                    
+                    <span class="keyword medium">
+                        upgrade
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>CoreWeave stock rebounded amid Goldman Sachs' upgrade to buy on views that its rising debt to build AI data centers is manageable.</p>
+<p>The post <a href="https://www.investors.com/news/technology...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Investors_Daily
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 3시간 5분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 23:08:43 KST)
+                    </div>
+                    <a href="https://www.investors.com/news/technology/neoclouds-goldman-sachs-upgrades-coreweave-microsoft-shelves-nscale-project/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="9.0" data-time="2026-10-19 23:00:00">
+                
+                <div class="score-badge">9.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxPbWV5b0dLcWs3UFJteGs3Qk1GYU1UMVNIVGp3UUZXNXB3WFJib3dvM1R3LWhBbWEzZXZnT3pMdkU1TjdOQkdwejVTMDNJUDFyN1Y5UU15d0Ywa24tdWdzNXdLWXZGMzdDekV3ZGpBLTZOUVJrREktMmVCMFpqa2RCVHIzeGVvdVpEUVlrSWFYeHQxanluYnJYem5uSC00MGc3blFmN3JkS0xPdDJoYVFXQmx6WkMxamtVaXc?oc=5" target="_blank">DD Gains on Innovation, Productivity and Strategic Acquisitions - TradingView</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        acquisition
+                    </span>
+                    
+                    <span class="keyword high">
+                        innovation
+                    </span>
+                    
+                    <span class="keyword medium">
+                        strategic
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gain
+                    </span>
+                    
+                    <span class="keyword ">
+                        gains
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxPbWV5b0dLcWs3UFJteGs3Qk1GYU1UMVNIVGp3UUZXNXB3WFJib3dvM1R3LWhBbWEzZXZnT3pMdkU1TjdOQkdwejVTMDNJUDFyN1Y5UU15d0Ywa24tdWdzNXdLWXZGMzdDekV3ZGpBLT...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_전기차
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 3시간 14분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 23:00:00 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxPbWV5b0dLcWs3UFJteGs3Qk1GYU1UMVNIVGp3UUZXNXB3WFJib3dvM1R3LWhBbWEzZXZnT3pMdkU1TjdOQkdwejVTMDNJUDFyN1Y5UU15d0Ywa24tdWdzNXdLWXZGMzdDekV3ZGpBLTZOUVJrREktMmVCMFpqa2RCVHIzeGVvdVpEUVlrSWFYeHQxanluYnJYem5uSC00MGc3blFmN3JkS0xPdDJoYVFXQmx6WkMxamtVaXc?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 21:58:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNcnZiYWJTajViOHoxT1Bkb3lnSnROZFR2VTdnNG1PRkZoa0ZQUWZxTWc1azNMYlB2UldrRHd4eHRYYnlTc1gxS2s3ZnQ5bUg5end6bXB1bHB6NnEyekVoS3NFa25lam5UTXB2dUJpUjQtNGhfYXVpV04xZW9TSUFTYUgwZ0owZ2dONVl0NHlqMzdCcHRKV0pPeVdNb1RjelVwZzhqTWFYemN6TllkYTBBeUY0bl9BS3g5Z28zM3Nn?oc=5" target="_blank">CoreWeave Jumps 6% on Goldman Sachs Upgrade; Nebius Rises 7%, Oracle Edges Higher - 24/7 Wall St.</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        jumps
+                    </span>
+                    
+                    <span class="keyword high">
+                        rises
+                    </span>
+                    
+                    <span class="keyword medium">
+                        upgrade
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNcnZiYWJTajViOHoxT1Bkb3lnSnROZFR2VTdnNG1PRkZoa0ZQUWZxTWc1azNMYlB2UldrRHd4eHRYYnlTc1gxS2s3ZnQ5bUg5end6bXB1bHB6NnEyekVoS3NFa25lam5UTXB2dUJpUj...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Cloud
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 4시간 16분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 21:58:00 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNcnZiYWJTajViOHoxT1Bkb3lnSnROZFR2VTdnNG1PRkZoa0ZQUWZxTWc1azNMYlB2UldrRHd4eHRYYnlTc1gxS2s3ZnQ5bUg5end6bXB1bHB6NnEyekVoS3NFa25lam5UTXB2dUJpUjQtNGhfYXVpV04xZW9TSUFTYUgwZ0owZ2dONVl0NHlqMzdCcHRKV0pPeVdNb1RjelVwZzhqTWFYemN6TllkYTBBeUY0bl9BS3g5Z28zM3Nn?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 21:56:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMigwJBVV95cUxPWDR3YU45Tk1ibkFQTktPRVIxckZlcVVEb1JVTWxZMHJuMWdBbjBsNkVaNlN1dm1MQ0NROFdpZVdhXzk2T0NmU0lLZHpqQV9LcXk0TzNfRXpyeVFWQVFNNUg1OGJJaGxKS0ZmaGQyN2I4QjdkNnNqeXNfRWFaQW54V25HaF9Pc1VadVdFY3dNQXhvVWUxWmxSQ05GMXNwU2I0X2s5aEQxOExHZWs0dXN2Rmh4WjBpdjFibzltV3RKSy1Lb2taeC1uRE5QTDRfSnktSHpLODZBenBwQWRXWnZaMGU3dXh5UTBPMEhueDhFTk1QWDlUVV9JajY1bXNtUlRQcGFN?oc=5" target="_blank">Canlan Ice Sports Corp. (TSX:ICE): Dividend Increase and Revenue Growth Strengthen Income Outlook, but Cash Flow Discipline Remains Crucial - kalkine.ca</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        dividend increase
+                    </span>
+                    
+                    <span class="keyword high">
+                        growth
+                    </span>
+                    
+                    <span class="keyword medium">
+                        increase
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMigwJBVV95cUxPWDR3YU45Tk1ibkFQTktPRVIxckZlcVVEb1JVTWxZMHJuMWdBbjBsNkVaNlN1dm1MQ0NROFdpZVdhXzk2T0NmU0lLZHpqQV9LcXk0TzNfRXpyeVFWQVFNNUg1OGJJaGxKS0ZmaGQyN2...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Dividend
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 4시간 18분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 21:56:00 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMigwJBVV95cUxPWDR3YU45Tk1ibkFQTktPRVIxckZlcVVEb1JVTWxZMHJuMWdBbjBsNkVaNlN1dm1MQ0NROFdpZVdhXzk2T0NmU0lLZHpqQV9LcXk0TzNfRXpyeVFWQVFNNUg1OGJJaGxKS0ZmaGQyN2I4QjdkNnNqeXNfRWFaQW54V25HaF9Pc1VadVdFY3dNQXhvVWUxWmxSQ05GMXNwU2I0X2s5aEQxOExHZWs0dXN2Rmh4WjBpdjFibzltV3RKSy1Lb2taeC1uRE5QTDRfSnktSHpLODZBenBwQWRXWnZaMGU3dXh5UTBPMEhueDhFTk1QWDlUVV9JajY1bXNtUlRQcGFN?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2026-10-19 21:54:01">
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxPSWVpN2NfeGV4VTJMNThSWU9UUnZoX3o1WEc3ZWgzX19LSjI2RWV5Q2czVjVIZWFyMFpxd3o0ZXdoWjVPbE5SREhlS18wRXh1SkJVV1NmbDJBUlZRUHJsenMxUmhqQXdCdXhTUmM2a3ZBQkFOTkQ0Y0s0T2NVOXI1VDNFSmIyYU11QlhvbVJPcw?oc=5" target="_blank">[IPO프리즘] '로봇 두뇌 개발' 인텔리빅스, 상장 앞두고 피지컬 AI 정조준 : 네이버 블로그 - Naver Blog</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        상장
+                    </span>
+                    
+                    <span class="keyword high">
+                        IPO
+                    </span>
+                    
+                    <span class="keyword medium">
+                        개발
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxPSWVpN2NfeGV4VTJMNThSWU9UUnZoX3o1WEc3ZWgzX19LSjI2RWV5Q2czVjVIZWFyMFpxd3o0ZXdoWjVPbE5SREhlS18wRXh1SkJVV1NmbDJBUlZRUHJsenMxUmhqQXdCdXhTUmM2a3...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_IPO
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 4시간 20분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 21:54:01 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxPSWVpN2NfeGV4VTJMNThSWU9UUnZoX3o1WEc3ZWgzX19LSjI2RWV5Q2czVjVIZWFyMFpxd3o0ZXdoWjVPbE5SREhlS18wRXh1SkJVV1NmbDJBUlZRUHJsenMxUmhqQXdCdXhTUmM2a3ZBQkFOTkQ0Y0s0T2NVOXI1VDNFSmIyYU11QlhvbVJPcw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-19 21:53:42">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxORmRnTnlCQjlYVGFpRl9OaUtVdlhkejA5MXdHN093RWk1cHpRWFRhQ3ZmT3VtRmQ1VlhGcnpzaXUxZmlRRng1M3kwUjJpVjdvUHRqWEVaQWZMdlc2T0oydkkxMmtwTzZ3TGREdEZLQlN5aTM4UEhtcEphb3RYdmpUc0FiZEVwSk1kUjY5WjRsN0VaRENTSE1iRDhFYw?oc=5" target="_blank">Total Energy plans share buyback - TradingView</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        share buyback
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxORmRnTnlCQjlYVGFpRl9OaUtVdlhkejA5MXdHN093RWk1cHpRWFRhQ3ZmT3VtRmQ1VlhGcnpzaXUxZmlRRng1M3kwUjJpVjdvUHRqWEVaQWZMdlc2T0oydkkxMmtwTzZ3TGREdEZLQl...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Buyback
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 4시간 20분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 21:53:42 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxORmRnTnlCQjlYVGFpRl9OaUtVdlhkejA5MXdHN093RWk1cHpRWFRhQ3ZmT3VtRmQ1VlhGcnpzaXUxZmlRRng1M3kwUjJpVjdvUHRqWEVaQWZMdlc2T0oydkkxMmtwTzZ3TGREdEZLQlN5aTM4UEhtcEphb3RYdmpUc0FiZEVwSk1kUjY5WjRsN0VaRENTSE1iRDhFYw?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="6.0" data-time="2026-10-19 21:01:20">
+                
+                <div class="score-badge">6.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-stocks-news-october192026/" target="_blank">AI Stocks Face Earnings Gut Check As Spending Jitters Mount</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        MOU
+                    </span>
+                    
+                    <span class="keyword high">
+                        technology
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        investment
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>AI stocks face an earnings test, with SpaceX and Meta due, as investors question massive spending and look for return on investments. </p>
+<p>The post <a href="https://www.investors.com/news/techno...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Investors_Daily
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 5시간 12분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 21:01:20 KST)
+                    </div>
+                    <a href="https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-stocks-news-october192026/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="7.0" data-time="2026-10-19 20:16:37">
+                
+                <div class="score-badge">7.0점</div>
+                
+                <div class="title">
+                    <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxQWUFhWXNqdjltUjgxNlBXY2pqVEc2c3V6RWFuaFRfR043eVZmN00zT1luWTMxYXpYYkExZzhYdl9jVmluZ3prTVlQVXkxUkNvSFk0YkRDRlQxVU56Wk1UQzQ3MDY3R2JBZjh6TTNpd2pzZ3I4Z1VrWVVRNVYxbzRhY05LbWFSUG9rUm1iUFF2WjQzZ0hMTUdhR1pYMXA0SXliNjBXVm5OekFPN3RkY0FuRWpwc08zNjg0SENjUzBlMDZrVExXc2hZX1hZMFdya2ZDcFBJRdIB1AFBVV95cUxQWUFhWXNqdjltUjgxNlBXY2pqVEc2c3V6RWFuaFRfR043eVZmN00zT1luWTMxYXpYYkExZzhYdl9jVmluZ3prTVlQVXkxUkNvSFk0YkRDRlQxVU56Wk1UQzQ3MDY3R2JBZjh6TTNpd2pzZ3I4Z1VrWVVRNVYxbzRhY05LbWFSUG9rUm1iUFF2WjQzZ0hMTUdhR1pYMXA0SXliNjBXVm5OekFPN3RkY0FuRWpwc08zNjg0SENjUzBlMDZrVExXc2hZX1hZMFdya2ZDcFBJRQ?oc=5" target="_blank">Is NV Bekaert (ENXTBR:BEKB) Undervalued After Its Buyback And Dividend Increase? - Simply Wall Street</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        buyback
+                    </span>
+                    
+                    <span class="keyword high">
+                        dividend increase
+                    </span>
+                    
+                    <span class="keyword medium">
+                        increase
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxQWUFhWXNqdjltUjgxNlBXY2pqVEc2c3V6RWFuaFRfR043eVZmN00zT1luWTMxYXpYYkExZzhYdl9jVmluZ3prTVlQVXkxUkNvSFk0YkRDRlQxVU56Wk1UQzQ3MDY3R2JBZjh6TTNpd2...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 구글뉴스_Dividend
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 5시간 57분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 20:16:37 KST)
+                    </div>
+                    <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxQWUFhWXNqdjltUjgxNlBXY2pqVEc2c3V6RWFuaFRfR043eVZmN00zT1luWTMxYXpYYkExZzhYdl9jVmluZ3prTVlQVXkxUkNvSFk0YkRDRlQxVU56Wk1UQzQ3MDY3R2JBZjh6TTNpd2pzZ3I4Z1VrWVVRNVYxbzRhY05LbWFSUG9rUm1iUFF2WjQzZ0hMTUdhR1pYMXA0SXliNjBXVm5OekFPN3RkY0FuRWpwc08zNjg0SENjUzBlMDZrVExXc2hZX1hZMFdya2ZDcFBJRdIB1AFBVV95cUxQWUFhWXNqdjltUjgxNlBXY2pqVEc2c3V6RWFuaFRfR043eVZmN00zT1luWTMxYXpYYkExZzhYdl9jVmluZ3prTVlQVXkxUkNvSFk0YkRDRlQxVU56Wk1UQzQ3MDY3R2JBZjh6TTNpd2pzZ3I4Z1VrWVVRNVYxbzRhY05LbWFSUG9rUm1iUFF2WjQzZ0hMTUdhR1pYMXA0SXliNjBXVm5OekFPN3RkY0FuRWpwc08zNjg0SENjUzBlMDZrVExXc2hZX1hZMFdya2ZDcFBJRQ?oc=5" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 17:57:12">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.mk.co.kr/news/stock/12179925" target="_blank">NH아문디운용 성장주도 코리아 펀드 출시 1년…“반도체 소부장 투자 확대”</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        성장
+                    </span>
+                    
+                    <span class="keyword high">
+                        확대
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                    <span class="keyword medium">
+                        출시
+                    </span>
+                    
+                    <span class="keyword ">
+                        상승
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    성장주도 코리아 펀드 설정 1주년 간담회 1년 수익률 85%로 코스피 수익률 넘겨 “반도체 2차 상승은 소부장 주도 전망”NH아문디자산운용은 19일 서울 여의도 FKI타워에서 ‘성..
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 매일경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 8시간 17분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 17:57:12 KST)
+                    </div>
+                    <a href="https://www.mk.co.kr/news/stock/12179925" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="9.0" data-time="2026-10-19 14:41:29">
+                
+                <div class="score-badge">9.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20261019_0003831609" target="_blank">글로벌 사모펀드, 亞 다음 투자처로 韓 주목…"日과 유사"</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        M&A
+                    </span>
+                    
+                    <span class="keyword high">
+                        인수합병
+                    </span>
+                    
+                    <span class="keyword medium">
+                        진출
+                    </span>
+                    
+                    <span class="keyword medium">
+                        투자
+                    </span>
+                    
+                    <span class="keyword ">
+                        증가
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2026/04/03/NISI20260403_0021233533_web.jpg?rnd=20260403111650" /></p>[서울=뉴시스]고재은 기자 = 글로벌 사모펀드들이 대규모 인수합병(M&amp;A)을 활발하게 벌이며 다음 아시아 진출 거점으로 한국을 주목하고 있다고 18일(현지 시간...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 11시간 32분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 14:41:29 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20261019_0003831609" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 12:35:44">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20261019_0003831551" target="_blank">중국 9월 산업생산 5.5%↑·소매판매 1.1%↑…예상 웃돌아</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        확대
+                    </span>
+                    
+                    <span class="keyword high">
+                        투자
+                    </span>
+                    
+                    <span class="keyword medium">
+                        개발
+                    </span>
+                    
+                    <span class="keyword medium">
+                        증가
+                    </span>
+                    
+                    <span class="keyword ">
+                        상승
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2024/01/16/NISI20240116_0020196493_web.jpg?rnd=20260702174213" /></p><br />[서울=뉴시스]이재준 기자 = 중국 9월 산업생산과 소매판매가 시장 예상을 웃돌았다. 제조업과 수출이 경제를 뒷받침했지만 고정자산투자와 부동산 개발투자는 큰...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 13시간 38분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 12:35:44 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20261019_0003831551" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-19 11:59:14">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.newsis.com/view/NISX20261019_0003831513" target="_blank">신동아건설, '3200억원' 대전 자양2구역 재개발 수주</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        수주
+                    </span>
+                    
+                    <span class="keyword high">
+                        확대
+                    </span>
+                    
+                    <span class="keyword medium">
+                        개발
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><img src="https://image.newsis.com/2026/10/19/NISI20261019_0002267206_web.jpg?rnd=20261019115118" /></p><br />[서울=뉴시스]정유선 기자 = 신동아건설이 지난 17일 열린 대전 자양2구역 재개발정비사업 조합원 총회에서 시공사로 최종 선정됐다고 19일 밝혔다. <br ...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 뉴시스_경제
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 14시간 15분 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-19 11:59:14 KST)
+                    </div>
+                    <a href="https://www.newsis.com/view/NISX20261019_0003831513" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-17 03:53:04">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.investors.com/stock-lists/ipo-analysis/bending-spoons-stock-bsp-berkshire-hathaway-buffett-investment-markets/" target="_blank">IPO Stock Of The Week: Bending Spoons Defies Gravity After $330 Million Berkshire Investment</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        IPO
+                    </span>
+                    
+                    <span class="keyword high">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        investment
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>Bending Spoons soared after a $330 million investment from Berkshire Hathaway. Shares are near a new buy point.</p>
+<p>The post <a href="https://www.investors.com/stock-lists/ipo-analysis/bending-s...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Investors_Daily
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2일 22시간 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-17 03:53:04 KST)
+                    </div>
+                    <a href="https://www.investors.com/stock-lists/ipo-analysis/bending-spoons-stock-bsp-berkshire-hathaway-buffett-investment-markets/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-17 01:09:46">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://www.investors.com/news/technology/coreweave-stock-rally-fizzles-despite-arks-wood-nvidia-support/" target="_blank">CoreWeave Rides Rollercoaster Despite ARK's Wood, Nvidia Support</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        technology
+                    </span>
+                    
+                    <span class="keyword high">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                    <span class="keyword medium">
+                        investment
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p>CoreWeave stock fell again Friday despite Cathie Wood's ARK Investment Management buying shares in the under-pressure, AI stock.</p>
+<p>The post <a href="https://www.investors.com/news/technology/c...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 Investors_Daily
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 3일 1시간 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-17 01:09:46 KST)
+                    </div>
+                    <a href="https://www.investors.com/news/technology/coreweave-stock-rally-fizzles-despite-arks-wood-nvidia-support/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-16 02:45:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://investorplace.com/smartmoney/2026/10/ai-bargain-hiding-big-pharma/" target="_blank">The AI Bargain Hiding in Big Pharma</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        innovation
+                    </span>
+                    
+                    <span class="keyword high">
+                        growth
+                    </span>
+                    
+                    <span class="keyword medium">
+                        gain
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><a href="https://investorplace.com">InvestorPlace - Stock Market News, Stock Advice &amp; Trading Tips</a></p>
+<p>Investors may not be giving big pharma companies credit for the potential to turn A...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 InvestorPlace
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 3일 23시간 전
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-16 02:45:00 KST)
+                    </div>
+                    <a href="https://investorplace.com/smartmoney/2026/10/ai-bargain-hiding-big-pharma/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="news-card" data-score="5.0" data-time="2026-10-11 21:55:00">
+                
+                <div class="score-badge">5.0점</div>
+                
+                <div class="title">
+                    <a href="https://investorplace.com/hypergrowthinvesting/2026/10/spacex-just-put-a-launch-date-on-the-orbital-ai-boom/" target="_blank">Google Just Put AI Chips in Orbit. These 5 Stocks Could Build What Comes Next.</a>
+                </div>
+                
+                <div class="keywords">
+                    
+                    <span class="keyword high">
+                        technology
+                    </span>
+                    
+                    <span class="keyword high">
+                        growth
+                    </span>
+                    
+                    <span class="keyword medium">
+                        launch
+                    </span>
+                    
+                    <span class="keyword medium">
+                        invest
+                    </span>
+                    
+                </div>
+                
+                
+                <div class="summary">
+                    <p><a href="https://investorplace.com">InvestorPlace - Stock Market News, Stock Advice &amp; Trading Tips</a></p>
+<p>Google’s Project Suncatcher advances the case for space data centers. Explore the t...
+                </div>
+                
+                
+                <div class="meta">
+                    <div class="meta-item">
+                        📰 InvestorPlace
+                    </div>
+                    <div class="meta-item" style="color: #e74c3c; font-weight: 600;">
+                        🕐 2026-10-11 21:55
+                    </div>
+                    <div class="meta-item" style="color: #95a5a6; font-size: 12px;">
+                        (2026-10-11 21:55:00 KST)
+                    </div>
+                    <a href="https://investorplace.com/hypergrowthinvesting/2026/10/spacex-just-put-a-launch-date-on-the-orbital-ai-boom/" target="_blank" class="link-btn">
+                        원문 보기 →
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <div class="footer">
+            <p>🤖 자동 생성된 호재 뉴스 리포트</p>
+            <p>5분마다 자동 업데이트 | 개인 투자 참고용</p>
+        </div>
+    </div>
+    
+    <script>
+        // 현재 정렬 상태
+        let currentSort = 'time';
+        // 현재 필터 상태 (null이면 전체)
+        let currentFilter = null;
+        
+        // 날짜 필터링
+        function filterByDate(days) {
+            const button = event.target;
+            
+            // 이미 선택된 버튼을 다시 클릭하면 해제
+            if (currentFilter === days) {
+                currentFilter = null;
+                button.classList.remove('active');
+                showAllNews();
+                return;
+            }
+            
+            // 필터 적용
+            currentFilter = days;
+            
+            // 버튼 상태 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // 날짜 필터링
+            const now = new Date();
+            const cards = document.querySelectorAll('.news-card');
+            
+            cards.forEach(card => {
+                const newsTime = new Date(card.dataset.time);
+                const diffDays = (now - newsTime) / (1000 * 60 * 60 * 24);
+                
+                if (days === 0) {
+                    // 오늘: 24시간 이내
+                    if (diffDays <= 1) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                } else if (days === 1) {
+                    // 어제: 24~48시간
+                    if (diffDays > 1 && diffDays <= 2) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                } else {
+                    // N일: N일 이내
+                    if (diffDays <= days) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+            
+            smoothScroll();
+        }
+        
+        // 전체 뉴스 표시
+        function showAllNews() {
+            document.querySelectorAll('.news-card').forEach(card => {
+                card.classList.remove('hidden');
+            });
+        }
+        
+        // 최신순 정렬
+        function sortByTime() {
+            if (currentSort === 'time') return;
+            currentSort = 'time';
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 뉴스 카드들 가져오기
+            const container = document.getElementById('news-container');
+            const cards = Array.from(container.getElementsByClassName('news-card'));
+            
+            // 시간순 정렬 (최신이 위)
+            cards.sort((a, b) => {
+                const timeA = new Date(a.dataset.time);
+                const timeB = new Date(b.dataset.time);
+                return timeB - timeA;  // 내림차순
+            });
+            
+            // 다시 배치
+            cards.forEach(card => container.appendChild(card));
+            
+            // 스크롤 애니메이션
+            smoothScroll();
+        }
+        
+        // 점수순 정렬
+        function sortByScore() {
+            if (currentSort === 'score') return;
+            currentSort = 'score';
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 뉴스 카드들 가져오기
+            const container = document.getElementById('news-container');
+            const cards = Array.from(container.getElementsByClassName('news-card'));
+            
+            // 점수순 정렬 (높은 점수가 위, 같은 점수면 최신순)
+            cards.sort((a, b) => {
+                const scoreA = parseFloat(a.dataset.score);
+                const scoreB = parseFloat(b.dataset.score);
+                
+                if (scoreB !== scoreA) {
+                    return scoreB - scoreA;  // 점수 내림차순
+                } else {
+                    // 같은 점수면 시간순
+                    const timeA = new Date(a.dataset.time);
+                    const timeB = new Date(b.dataset.time);
+                    return timeB - timeA;  // 최신이 위
+                }
+            });
+            
+            // 다시 배치
+            cards.forEach(card => container.appendChild(card));
+            
+            // 스크롤 애니메이션
+            smoothScroll();
+        }
+        
+        // 부드러운 스크롤
+        function smoothScroll() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
